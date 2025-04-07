@@ -2,11 +2,15 @@
 import '../styles/home.css';
 import { fetchUserData } from "@/state-management/slices/userSlice";
 import { AppDispatch, RootState } from "@/state-management/store";
+import { ROUTE_PATHS } from '@/utilis/constants';
+import { useRouter } from 'next/navigation';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
+  const { isAuth } = useSelector((state: RootState) => state.userData.authUserInfo)
+  const { push } = useRouter();
   useEffect(() => {dispatch(fetchUserData())
   }, []);
 
@@ -20,10 +24,10 @@ export default function Home() {
         </p>
         <h1>Say hello to the future of communication. Let's get started!</h1>
         <div className="flex space-x-4">
-          <button>
+          <button onClick={() => isAuth ? push(ROUTE_PATHS.FUNCTIONS) : push(ROUTE_PATHS.SIGN_IN)}>
             Start Chatting
           </button>
-          <button>
+          <button onClick={() => push(ROUTE_PATHS.ABOUT)}>
             Learn More
           </button>
         </div>

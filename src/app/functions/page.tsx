@@ -1,6 +1,12 @@
 import '../../styles/home.css';
-import chatBot from '../../../public/Images/chatbot.png'
-import { log } from 'console';
+import chatBot from '../../../public/Images/chatbot.png';
+import recomendations from '../../../public/Images/recommendations.jpg';
+import aiImage from '../../../public/Images/ai-image.jpg';
+import data from '../../../public/Images/data.jpg';
+import voice from '../../../public/Images/voice.jpg';
+import image from '../../../public/Images/image.jpg';
+import sentiment from '../../../public/Images/sentiment-analysis.jpg';
+import writing from '../../../public/Images/writing.jpg';
 
 export default function Functions() {
     return (
@@ -20,58 +26,51 @@ export default function Functions() {
           </div>
   
           {/* Personalized Recommendations */}
-          <div className="function-card" style={{ backgroundImage: 'url(/images/recommendations.jpg)' }}>
+          <div className="function-card" style={{ backgroundImage:  `url(${recomendations.src})` }}>
             <button className="function-btn">
               Personalized Recommendations
             </button>
           </div>
   
           {/* AI Image Generation */}
-          <div className="function-card" style={{ backgroundImage: 'url(/images/ai-image.jpg)' }}>
+          <div className="function-card" style={{ backgroundImage:  `url(${aiImage.src})` }}>
             <button className="function-btn">
               AI Image Generation
             </button>
           </div>
   
           {/* Data Analytics & Visualization */}
-          <div className="function-card" style={{ backgroundImage: 'url(/images/data-analytics.jpg)' }}>
+          <div className="function-card" style={{ backgroundImage: `url(${data.src})` }}>
             <button className="function-btn">
               Data Analytics & Visualization
             </button>
           </div>
   
-          {/* Natural Language Processing (NLP) */}
-          <div className="function-card" style={{ backgroundImage: 'url(/images/nlp.jpg)' }}>
-            <button className="function-btn">
-              Natural Language Processing
-            </button>
-          </div>
-  
           {/* Voice Recognition */}
-          <div className="function-card" style={{ backgroundImage: 'url(/images/voice-recognition.jpg)' }}>
+          <div className="function-card" style={{ backgroundImage:  `url(${voice.src})` }}>
             <button className="function-btn">
               Voice Recognition
             </button>
           </div>
   
           {/* Image Recognition */}
-          <div className="function-card" style={{ backgroundImage: 'url(/images/image-recognition.jpg)' }}>
+          <div className="function-card" style={{ backgroundImage: `url(${image.src})`}}>
             <button className="function-btn">
               Image Recognition
             </button>
           </div>
   
           {/* Sentiment Analysis */}
-          <div className="function-card" style={{ backgroundImage: 'url(/images/sentiment-analysis.jpg)' }}>
+          <div className="function-card" style={{ backgroundImage: `url(${sentiment.src})` }}>
             <button className="function-btn">
               Sentiment Analysis
             </button>
           </div>
   
           {/* Predictive Analytics */}
-          <div className="function-card" style={{ backgroundImage: 'url(/images/predictive-analytics.jpg)' }}>
+          <div className="function-card" style={{ backgroundImage: `url(${writing.src})` }}>
             <button className="function-btn">
-              Predictive Analytics
+            AI Writing Assistant
             </button>
           </div>
           

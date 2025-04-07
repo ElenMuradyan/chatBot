@@ -4,12 +4,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/services/firebase";
 import { FIRESTORE_PATH_NAMES } from "@/utilis/constants";
 import { doc, getDoc } from "firebase/firestore";
+import Cookies from 'js-cookie';
 
 const initialState: userDataSliceType = {
     loading: true,
     error: null,
     authUserInfo: {
-        isAuth: false,
+        isAuth: Cookies.get('isAuth') === 'true',
         userData: null,
     },
 };
@@ -66,6 +67,7 @@ const userDataSlice = createSlice({
             state.loading = false;
             state.error = action.payload as string;
             state.authUserInfo.isAuth = false;
+            Cookies.set('isAuth', 'false', {expires: 7, path: '/'})
         })
     }
 });

@@ -4,7 +4,7 @@ import { Form, notification } from 'antd';
 import { useDispatch } from 'react-redux';
 import { fetchUserData, setIsAuth } from '@/state-management/slices/userSlice';
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getIdToken, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/services/firebase';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -22,11 +22,28 @@ const Login = () => {
       setLoading( true );
       try{
       const { email, password } = values;
-      await signInWithEmailAndPassword( auth, email, password );
-      form.resetFields();
+      const userCredential = await signInWithEmailAndPassword( auth, email, password );
+      const token = await getIdToken(userCredential.user);
+
       dispatch(fetchUserData());
       dispatch(setIsAuth(true));
+
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ token }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    if (res.ok) {
       router.push(ROUTE_PATHS.HOME);
+    } else {
+      notification.error({
+        message: 'Authentication failed, please try again.',
+      });
+    }
+    form.resetFields();
+    return res.json();
       }catch( error ){
               notification.error({
                       message:'Invalid Login Credentials', 
@@ -40,6 +57,7 @@ const Login = () => {
   <Form
     layout="vertical"
     onFinish={handleLogin}
+    initialValues={{ email: '', password: '' }} 
     form={form}
     style={{padding: 10}}
     className="w-2/3 bg-gray-900 border border-gray-700 rounded-md p-10 space-y-6" 

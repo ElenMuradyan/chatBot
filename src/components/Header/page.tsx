@@ -8,7 +8,7 @@ export default function Header () {
         <header className="flex justify-between items-center p-1 bg-black bg-opacity-90 shadow-md">
         <Image src={icon} alt="icon" width={50}/>
       
-        <nav className="hidden md:flex space-x-6">
+        <nav className="flex space-x-6">
           <a href="/">Home</a>
           <a href="/functions">Functions</a>
           <a href="/about">About</a>

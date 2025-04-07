@@ -8,8 +8,6 @@ const About = () => {
         <p className="gradient-text">
           Welcome to our AI-powered chatbot! We're excited to introduce you to a new way of interacting with technology, providing quick and efficient assistance, personalized recommendations, and answers to your queries.
           Built on cutting-edge artificial intelligence, our chatbot is designed to understand and respond to a wide range of user needs. Whether you’re looking for support, exploring new ideas, or just having a conversation, our bot is here to help you 24/7.
-          We’ve focused on making the experience smooth, intuitive, and secure. Your privacy is our priority, and we work tirelessly to ensure that all your interactions are handled safely.
-          Thank you for visiting. We’re continuously improving to bring you the best experience possible. If you have any feedback or need assistance, don't hesitate to reach out.
         </p>
       </div>
     </div>

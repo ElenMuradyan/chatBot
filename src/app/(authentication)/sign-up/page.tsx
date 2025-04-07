@@ -1,6 +1,6 @@
 'use client'
 
-import { Form, Input, notification } from 'antd';
+import { Form, notification } from 'antd';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '@/services/firebase';
@@ -50,7 +50,8 @@ const Register = () => {
     onFinish={handleRegister}
     form={form}
     style={{padding: 10}}
-    className="w-2/3 bg-gray-900 border border-gray-700 rounded-md p-10 space-y-6" // Added px-6 and py-8 for padding
+    initialValues={{ email: '', password: '', userName: '' }} 
+    className="w-2/3 bg-gray-900 border border-gray-700 rounded-md p-10 space-y-6" 
   >
     <h2 className="text-3xl font-bold text-center text-white drop-shadow-[0_0_6px_#8b5cf6]">
       Register
