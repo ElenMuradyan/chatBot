@@ -4,6 +4,7 @@ export const ROUTE_PATHS = {
     SIGN_UP: '/sign-up',
     FUNCTIONS: '/functions',
     ABOUT: '/about',
+    AIPOWEREDCHATBOT: '/functions/AiPoweredChatbot'
 }
 
 export const FIRESTORE_PATH_NAMES = {

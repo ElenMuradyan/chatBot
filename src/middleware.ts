@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ROUTE_PATHS } from "./utilis/constants";
+import { cookies } from "next/headers";
 
-export default function authMiddleware(request: NextRequest){
-    const isAuth = request.cookies.get('isAuth')?.value === 'true';
+export default async function authMiddleware(request: NextRequest){
+    const isAuth = (await cookies()).get('isAuth')?.value === 'true';
     const notAuthProtectedUrls = [ ROUTE_PATHS.FUNCTIONS ];
     const authProtectedUrls = [ ROUTE_PATHS.SIGN_IN, ROUTE_PATHS.SIGN_UP];
 

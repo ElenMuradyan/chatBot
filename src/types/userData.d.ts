@@ -11,5 +11,10 @@ export type userDataSliceType = {
     authUserInfo: {
         isAuth: boolean,
         userData: userData | null,
+        messages: Record<string, message[]> | null,
     },
+}
+export interface message {
+    sender: string,
+    text: string    
 }

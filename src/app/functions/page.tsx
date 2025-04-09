@@ -1,4 +1,5 @@
-import '../../styles/home.css';
+'use client'
+
 import chatBot from '../../../public/Images/chatbot.png';
 import recomendations from '../../../public/Images/recommendations.jpg';
 import aiImage from '../../../public/Images/ai-image.jpg';
@@ -7,8 +8,14 @@ import voice from '../../../public/Images/voice.jpg';
 import image from '../../../public/Images/image.jpg';
 import sentiment from '../../../public/Images/sentiment-analysis.jpg';
 import writing from '../../../public/Images/writing.jpg';
+import { useRouter } from 'next/navigation';
+import { ROUTE_PATHS } from '@/utilis/constants';
+
+import '../../styles/home.css';
 
 export default function Functions() {
+  const { push } = useRouter();
+
     return (
       <div className="functions-container">
         <h1 className="title">Choose Your AI Function</h1>
@@ -20,7 +27,7 @@ export default function Functions() {
           
           {/* AI-Powered Chatbot */}
           <div className="function-card" style={{ backgroundImage: `url(${chatBot.src})` }}>
-            <button className="function-btn">
+            <button className="function-btn" onClick={() => push(`${ROUTE_PATHS.AIPOWEREDCHATBOT}/newChat`)}>
               AI-Powered Chatbot
             </button>
           </div>

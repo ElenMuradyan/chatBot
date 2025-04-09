@@ -11,8 +11,10 @@ export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const { isAuth } = useSelector((state: RootState) => state.userData.authUserInfo)
   const { push } = useRouter();
-  useEffect(() => {dispatch(fetchUserData())
-  }, []);
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
 
   return (
     <div className="home">

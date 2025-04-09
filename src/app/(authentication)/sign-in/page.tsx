@@ -22,15 +22,13 @@ const Login = () => {
       setLoading( true );
       try{
       const { email, password } = values;
-      const userCredential = await signInWithEmailAndPassword( auth, email, password );
-      const token = await getIdToken(userCredential.user);
+      await signInWithEmailAndPassword( auth, email, password );
 
       dispatch(fetchUserData());
       dispatch(setIsAuth(true));
 
       const res = await fetch('/api/auth/login', {
         method: 'POST',
-        body: JSON.stringify({ token }),
         headers: {
           'Content-Type': 'application/json',
         },
