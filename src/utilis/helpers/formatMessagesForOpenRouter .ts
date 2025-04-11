@@ -1,8 +1,11 @@
-export const formatMessagesForOpenRouter = (messages: {sender: string, text: string}[]) => {
+import { formatMessagesForOpenRouterInterface } from "@/types/fetchMessages"
+import { CHATBOT_PERSONALITIES } from "../constants"
+
+export const formatMessagesForOpenRouter = ({messages, personality}: formatMessagesForOpenRouterInterface) => {
     return[
         { 
             role: 'system', 
-            content: 'You are a helpful assistant. Answer logically and kindly.'
+            content: CHATBOT_PERSONALITIES[personality]
         }
 ,                  ...messages.map(msg => ({
           role: msg.sender === 'user' ? 'user' : 'assistant',

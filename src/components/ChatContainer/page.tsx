@@ -1,9 +1,8 @@
 import { useEffect, useRef } from "react";
 import { BotMessage } from "../BotMessage/page";
-import { LoadingOutlined, SendOutlined } from "@ant-design/icons";
 import { chatInterface } from "@/types/chatInterface";
 
-export default function ChatContainer ({messages, loading, input, setInput, sendMessage}: chatInterface) {
+export default function ChatContainer ({messages, loading}: chatInterface) {
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);  
 
     useEffect(() => {
@@ -11,11 +10,9 @@ export default function ChatContainer ({messages, loading, input, setInput, send
     }, [messages]);
   
     return(   
-     <div className='chatContainer'>
         <div className="messagesContainer">
           {messages?.map((msg, idx) => {
             const isLast = idx === messages.length - 1;
-            console.log(idx, isLast);
             
             return(
                 <div
@@ -35,20 +32,5 @@ export default function ChatContainer ({messages, loading, input, setInput, send
           }
        <div className='hi' ref={messagesContainerRef}></div>
       </div>
-        <div className="inputContainer">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-            placeholder="Type a message..."
-          />
-          <button
-            disabled={loading}
-            onClick={() => !loading ? sendMessage() : null}
-          >
-            {loading ? <LoadingOutlined /> : <SendOutlined />}
-          </button>
-        </div>
-        </div>
   )
 };

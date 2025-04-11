@@ -1,8 +1,11 @@
+import { message } from "antd";
 import { formatMessagesForOpenRouter } from "./formatMessagesForOpenRouter ";
+import { CHATBOT_PERSONALITIES } from "../constants";
+import { formatMessagesForOpenRouterInterface } from "@/types/fetchMessages";
 
-export async function SendToAiChatbot(messages: {sender: string, text: string}[]) {
+export async function SendToAiChatbot({messages, personality}: formatMessagesForOpenRouterInterface) {
     try {
-        const history = formatMessagesForOpenRouter(messages);
+        const history = formatMessagesForOpenRouter({messages, personality});
         const response = await fetch('/api/functions/AiPoweredChatbot', {
             method: 'POST',
             headers: {
