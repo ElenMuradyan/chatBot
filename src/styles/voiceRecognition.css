@@ -1,5 +1,121 @@
 .voiceRecognitionContainer{
     width: 100%;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(45deg, rgb(0, 0, 0), rgb(11, 0, 67));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
+.speakingLoader,
+.listenLoader {
+  width: 150px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.speakingLoader {
+  animation-name: l1;
+}
+
+.listenLoader {
+  will-change: border-radius, background;
+  animation-name: l2;
+  backface-visibility: hidden;
+}
+
+.voiceLoader {
+    height: 50px;
+    aspect-ratio: 2;
+    border: 10px solid transparent; 
+    box-sizing: border-box;
+    background: 
+      radial-gradient(farthest-side, #fff 98%, #0000) left/20px 20px,
+      radial-gradient(farthest-side, #fff 98%, #0000) left/20px 20px,
+      radial-gradient(farthest-side, #fff 98%, #0000) center/20px 20px,
+      radial-gradient(farthest-side, #fff 98%, #0000) right/20px 20px;
+    background-repeat: no-repeat;
+    filter: blur(4px) contrast(10);
+    animation: l14 1s infinite;
+  }
+  
+  @keyframes l14 {
+    100% {
+      background-position: right, left, center, right;
+    }
+  }
+  
+@keyframes l1 {
+    0%, 100% {
+      border-radius: 37% 63% 70% 30% / 30% 62% 38% 70%;
+      background: linear-gradient(45deg, #6f00ff, #00d0ff);
+    }
+    12.5% {
+      border-radius: 45% 55% 60% 40% / 40% 60% 40% 60%;
+      background: linear-gradient(45deg, #5000b3, #0099ff);
+    }
+    25% {
+      border-radius: 50% 50% 70% 30% / 52% 62% 38% 48%;
+      background: linear-gradient(45deg, #3300ff, #00fff7);
+    }
+    37.5% {
+      border-radius: 33% 67% 18% 82% / 52% 75% 25% 48%;
+      background: linear-gradient(45deg, #2b1a9c, #00ffbb);
+    }
+    50% {
+      border-radius: 73% 27% 18% 82% / 52% 32% 68% 48%;
+      background: linear-gradient(45deg, #1b004c, #aaffff);
+    }
+    62.5% {
+      border-radius: 73% 27% 74% 26% / 64% 32% 68% 36%;
+      background: linear-gradient(45deg, #0b0033, #7cfcff);
+    }
+    75% {
+      border-radius: 84% 16% 15% 85% / 55% 79% 21% 45%;
+      background: linear-gradient(45deg, #3b0066, #77e0ff);
+    }
+    87.5% {
+      border-radius: 12% 88% 69% 31% / 10% 66% 34% 90%;
+      background: linear-gradient(45deg, #0e0022, #c0ffff);
+    }
+  }
+  
+  @keyframes l2 {
+    0%, 100% {
+      border-radius: 37% 63% 70% 30% / 30% 62% 38% 70%;
+      background: linear-gradient(45deg, #000000, #ffffff);
+    }
+    12.5% {
+      border-radius: 45% 55% 60% 40% / 40% 60% 40% 60%;
+      background: linear-gradient(45deg, #111111, #eaeaea);
+    }
+    25% {
+      border-radius: 50% 50% 70% 30% / 52% 62% 38% 48%;
+      background: linear-gradient(45deg, #1f1f1f, #dddddd);
+    }
+    37.5% {
+      border-radius: 33% 67% 18% 82% / 52% 75% 25% 48%;
+      background: linear-gradient(45deg, #2c2c2c, #cccccc);
+    }
+    50% {
+      border-radius: 73% 27% 18% 82% / 52% 32% 68% 48%;
+      background: linear-gradient(45deg, #3a3a3a, #bbbbbb);
+    }
+    62.5% {
+      border-radius: 73% 27% 74% 26% / 64% 32% 68% 36%;
+      background: linear-gradient(45deg, #484848, #aaaaaa);
+    }
+    75% {
+      border-radius: 84% 16% 15% 85% / 55% 79% 21% 45%;
+      background: linear-gradient(45deg, #555555, #999999);
+    }
+    87.5% {
+      border-radius: 12% 88% 69% 31% / 10% 66% 34% 90%;
+      background: linear-gradient(45deg, #000000, #ffffff);
+    }
+  }
+  

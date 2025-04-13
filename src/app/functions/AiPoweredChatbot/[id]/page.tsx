@@ -10,21 +10,22 @@ import { useParams } from 'next/navigation';
 import { message } from '@/types/userData';
 import { addMessagesDoc, fetchMessages, updateMessagesDoc } from '@/utilis/helpers/fetchMessages';
 import { ROUTE_PATHS } from '@/utilis/constants';
-import { LoadingOutlined, SendOutlined } from '@ant-design/icons';
+import { AudioOutlined, LoadingOutlined, SendOutlined } from '@ant-design/icons';
 import ChatStart from '@/components/ChatStart/page';
 import { Personality } from '@/types/fetchMessages';
 
 import '../../../../styles/chat.css';
+import VoiceRecognition from '@/components/VoiceRecognition/page';
 
 export default function ChatPage() {
   const { userData } = useSelector((state: RootState) => state.userData.authUserInfo);
   const [messages, setMessages] = useState<message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
-  const [ personality, setPersonality ] = useState<Personality | null>(null);
+  const [ personality, setPersonality ] = useState<Personality>('Good Assistant');
   const dispatch = useDispatch<AppDispatch>();
   const [ routeId, setRouteId ] = useState<string>('');
-  const [ voiceMessage, setVoiceMessage ] = useState<string>();
+  const [ voiceRecording, setVoiceRecording ] = useState<boolean>(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -53,7 +54,6 @@ export default function ChatPage() {
     const message = input.trim();
     if (!message) return;
 
-    if(personality){
       try{
         setInput('');
         setLoading(true);
@@ -77,7 +77,7 @@ export default function ChatPage() {
             text: response
           }
         ]); 
-  
+        return response;
       }catch(error: any){
         notification.error({
           message: error.message
@@ -85,24 +85,19 @@ export default function ChatPage() {
       }finally{
         setLoading(false);
       }  
-    }else{
-      setPersonality('Good Assistant');
-      sendMessage();
-    }
   };
 
-  useEffect(() => {
-    console.log(personality);
-    console.log(messages);
-  }, [personality])
-
   return ( 
-    <div className='chatContainer'>
+    <>
+    {
+      voiceRecording ? <VoiceRecognition setVoiceMessage={setInput} setVoiceRecording={setVoiceRecording} endFuncton={sendMessage} loading={loading}/> 
+      :     
+      <div className='chatContainer'>
       {
-        (messages.length || personality) ? <ChatContainer messages={messages} sendMessage={sendMessage} input={input} setInput={setInput} loading={loading}/> : <ChatStart setPersonality={setPersonality}/>
+        (messages.length) ? <ChatContainer messages={messages} sendMessage={sendMessage} input={input} setInput={setInput} loading={loading}/> : <ChatStart setPersonality={setPersonality}/>
       }
       {
-        (!messages.length && personality) && <h1>Write to your personal AI {personality}</h1> 
+        (!messages.length && personality === 'Good Assistant') && <h1>Write to your personal AI {personality}</h1> 
      }
 
         <div className="inputContainer">
@@ -112,13 +107,24 @@ export default function ChatPage() {
             onKeyDown={(e) => e.key === 'Enter' && !loading && sendMessage()}
             placeholder="Type a message..."
           />
+          <div className='buttonContainer'>
+          <button 
+          onClick={() => setVoiceRecording(true)}
+          disabled={loading}
+          >
+            <AudioOutlined />
+          </button>
           <button
             disabled={loading}
             onClick={() => !loading ? sendMessage() : null}
           >
             {loading ? <LoadingOutlined /> : <SendOutlined />}
           </button>
+          </div>
         </div>
     </div>
+
+    }
+    </>
    );
 }
