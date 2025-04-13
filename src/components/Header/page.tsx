@@ -1,6 +1,4 @@
-import { RootState } from "@/state-management/store";
 import Image from "next/image";
-import { useSelector } from "react-redux";
 import icon from '../../app/favicon.ico';
 
 export default function Header () {
@@ -16,4 +14,4 @@ export default function Header () {
       </header>
       
     )
-}
+};

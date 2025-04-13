@@ -5,6 +5,7 @@ import { auth, db } from "@/services/firebase";
 import { FIRESTORE_PATH_NAMES } from "@/utilis/constants";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import Cookies from 'js-cookie';
+import { messageFromBackend } from "@/types/fetchMessages";
 
 const initialState: userDataSliceType = {
     loading: true,
@@ -46,8 +47,8 @@ export const messagesHistory = createAsyncThunk(
     async ({collectionName, uid}: {collectionName: string, uid: string}) => {
         const history = collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName);
         const historySnapshot = await getDocs(history);
-        let messages: Record<string, message[]> = {};
-        historySnapshot.docs.forEach(doc => {messages[doc.id] = doc.data() as message[]});        
+        let messages: Record<string, messageFromBackend> = {};
+        historySnapshot.docs.forEach(doc => {messages[doc.id] = doc.data() as messageFromBackend});        
         return messages;
     }
 )

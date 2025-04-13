@@ -36,3 +36,9 @@ export interface formatMessagesForOpenRouterInterface {
     messages: message[], 
     personality: Personality 
 }
+
+export interface messageFromBackend {
+    messages: message[], 
+    personality: Personality,
+    createdAt: string,
+}

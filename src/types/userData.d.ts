@@ -1,3 +1,5 @@
+import { messageFromBackend } from "./fetchMessages"
+
 export interface userData {
     uid: string,
     userName: string,
@@ -11,7 +13,7 @@ export type userDataSliceType = {
     authUserInfo: {
         isAuth: boolean,
         userData: userData | null,
-        messages: Record<string, message[]> | null,
+        messages: Record<string, messageFromBackend> | null,
     },
 }
 export interface message {

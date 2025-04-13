@@ -9,11 +9,12 @@ import ChatContainer from '@/components/ChatContainer/page';
 import { useParams } from 'next/navigation';
 import { message } from '@/types/userData';
 import { addMessagesDoc, fetchMessages, updateMessagesDoc } from '@/utilis/helpers/fetchMessages';
-import { CHATBOT_PERSONALITIES, ROUTE_PATHS } from '@/utilis/constants';
-import '../../../../styles/chat.css';
+import { ROUTE_PATHS } from '@/utilis/constants';
 import { LoadingOutlined, SendOutlined } from '@ant-design/icons';
 import ChatStart from '@/components/ChatStart/page';
 import { Personality } from '@/types/fetchMessages';
+
+import '../../../../styles/chat.css';
 
 export default function ChatPage() {
   const { userData } = useSelector((state: RootState) => state.userData.authUserInfo);
@@ -23,6 +24,7 @@ export default function ChatPage() {
   const [ personality, setPersonality ] = useState<Personality | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const [ routeId, setRouteId ] = useState<string>('');
+  const [ voiceMessage, setVoiceMessage ] = useState<string>();
   const { id } = useParams();
 
   useEffect(() => {
@@ -117,7 +119,6 @@ export default function ChatPage() {
             {loading ? <LoadingOutlined /> : <SendOutlined />}
           </button>
         </div>
-
     </div>
    );
 }

@@ -25,7 +25,7 @@ export async function fetchMessages ({uid, collectionName, chatId}: fetchMessage
 export async function addMessagesDoc ({uid, personality, collectionName, messages}: addMessageInterface) {
     try{        
         const collectionRef = collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName);
-        const message = await addDoc(collectionRef, {messages, personality});     
+        const message = await addDoc(collectionRef, {messages, personality, createdAt: (new Date()).toLocaleDateString('en-GB').replace(/\//g, '.')});     
         return message.id;
     }catch(err: any){
         console.log(err.message);
