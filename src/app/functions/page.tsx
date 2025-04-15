@@ -41,7 +41,7 @@ export default function Functions() {
   
           {/* AI Image Generation */}
           <div className="function-card" style={{ backgroundImage:  `url(${aiImage.src})` }}>
-            <button className="function-btn">
+            <button className="function-btn" onClick={() => push(`${ROUTE_PATHS.IMAGEGENERATION}`)}>
               AI Image Generation
             </button>
           </div>

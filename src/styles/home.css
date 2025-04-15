@@ -16,7 +16,6 @@
     align-items: center;
   }
   
-  /* Animating the text color between black and white */
   .gradient-text {
     font-size: 1.2rem;
     background: linear-gradient(45deg, rgb(11, 18, 44), rgb(255, 255, 255));

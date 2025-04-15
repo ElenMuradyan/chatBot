@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathName = usePathname();
-  const isChatPage = pathName.includes(ROUTE_PATHS.AIPOWEREDCHATBOT);
+  const isChatPage = pathName.includes(ROUTE_PATHS.AIPOWEREDCHATBOT) || pathName.includes(ROUTE_PATHS.IMAGEGENERATION);; 
 
   return (
     <html lang="en">

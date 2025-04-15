@@ -1,6 +1,4 @@
-import { message } from "antd";
 import { formatMessagesForOpenRouter } from "./formatMessagesForOpenRouter ";
-import { CHATBOT_PERSONALITIES } from "../constants";
 import { formatMessagesForOpenRouterInterface } from "@/types/fetchMessages";
 
 export async function SendToAiChatbot({messages, personality}: formatMessagesForOpenRouterInterface) {

@@ -39,7 +39,6 @@ input:active {
     height: 90vh;
     overflow-y: scroll;
     width: 100%;
-    /* background-image: url('../../public//background.png'); */
     background-position: center;
     background-size: cover;
     display: flex;
