@@ -13,16 +13,16 @@ import { ROUTE_PATHS } from '@/utilis/constants';
 import { AudioOutlined, LoadingOutlined, SendOutlined } from '@ant-design/icons';
 import ChatStart from '@/components/ChatStart/page';
 import { Personality } from '@/types/fetchMessages';
+import VoiceRecognition from '@/components/VoiceRecognition/page';
 
 import '../../../../styles/chat.css';
-import VoiceRecognition from '@/components/VoiceRecognition/page';
 
 export default function ChatPage() {
   const { userData } = useSelector((state: RootState) => state.userData.authUserInfo);
   const [messages, setMessages] = useState<message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
-  const [ personality, setPersonality ] = useState<Personality>('Good Assistant');
+  const [ personality, setPersonality ] = useState<Personality | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const [ routeId, setRouteId ] = useState<string>('');
   const [ voiceRecording, setVoiceRecording ] = useState<boolean>(false);
@@ -53,7 +53,8 @@ export default function ChatPage() {
   const sendMessage = async () => {
     const message = input.trim();
     if (!message) return;
-
+    !personality && setPersonality('Good Assistant');
+    if(personality){
       try{
         setInput('');
         setLoading(true);
@@ -84,7 +85,8 @@ export default function ChatPage() {
         })
       }finally{
         setLoading(false);
-      }  
+      } 
+    }
   };
 
   return ( 
@@ -94,11 +96,11 @@ export default function ChatPage() {
       :     
       <div className='chatContainer'>
       {
-        (messages.length) ? <ChatContainer messages={messages} sendMessage={sendMessage} input={input} setInput={setInput} loading={loading}/> : <ChatStart setPersonality={setPersonality}/>
+        (personality) ? <ChatContainer messages={messages} sendMessage={sendMessage} input={input} setInput={setInput} loading={loading}/> : <ChatStart setPersonality={setPersonality}/>
       }
       {
-        (!messages.length && personality === 'Good Assistant') && <h1>Write to your personal AI {personality}</h1> 
-     }
+        (!messages.length) && <h1>Write to your personal AI {personality ? personality : 'Good Assistant'}</h1> 
+      }
 
         <div className="inputContainer">
           <input
@@ -112,6 +114,7 @@ export default function ChatPage() {
           onClick={() => setVoiceRecording(true)}
           disabled={loading}
           >
+
             <AudioOutlined />
           </button>
           <button

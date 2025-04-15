@@ -16,6 +16,7 @@ const Register = () => {
      const [ form ] = Form.useForm();
      const { push } = useRouter();
      const [ loading, setLoading ] = useState<boolean>( false );
+     const [ error, setError ] = useState<string>('');
 
      const handleRegister = async (values: register) => {
         const { email, password, userName } = values;
@@ -36,10 +37,7 @@ const Register = () => {
             form.resetFields();
             push(ROUTE_PATHS.SIGN_IN);
         } catch (error: any) {
-            notification.error({
-                message: "Գրանցումը ձախողվեց",
-                description: error.message
-            });
+          setError(error.message);
         }finally{
             setLoading(false);
     }};
@@ -96,7 +94,7 @@ const Register = () => {
         className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white shadow-inner shadow-black focus:outline-none focus:ring-2 focus:ring-violet-600"
       />
     </Form.Item>
-
+    <p style={{color: 'red'}}>{error}</p>
     {/* Button + Link */}
     <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 pt-4">
       <button

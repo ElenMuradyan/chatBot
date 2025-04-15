@@ -1,10 +1,11 @@
+import { RootState } from "@/state-management/store";
 import { ROUTE_PATHS } from "@/utilis/constants";
-import { cookies } from "next/headers";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
-export default async function Home () {
-    const isAuth = (await cookies()).get('isAuth')?.value === 'true';
+export default function Home () {
     const { push } = useRouter();
+    const { isAuth } = useSelector((state: RootState) => state.userData.authUserInfo);
 
     return(
         <div className="home">

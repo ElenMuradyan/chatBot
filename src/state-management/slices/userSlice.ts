@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { message, userData, userDataSliceType } from "@/types/userData";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "@/services/firebase";
+import { userData, userDataSliceType } from "@/types/userData";
+import { db } from "@/services/firebase";
 import { FIRESTORE_PATH_NAMES } from "@/utilis/constants";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import Cookies from 'js-cookie';
@@ -19,26 +18,28 @@ const initialState: userDataSliceType = {
 
 export const fetchUserData = createAsyncThunk(
     "users/fetchUserData",
-    async (_, { dispatch, rejectWithValue }) => {
-        return new Promise<userData | null>((resolve, reject) => {
-            onAuthStateChanged(auth, (user) => {
-                if(user) {
-                    dispatch(changeLoading(true));
-                    const userRef = doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, user.uid);
-                    getDoc(userRef)
-                    .then((userData) => {
-                        if(userData.exists()){
-                            const data = userData.data();
-                            resolve(data as userData)
-                        }else{
-                            rejectWithValue('Ինչ որ բան սխալ գնաց։');
+    async (_, { rejectWithValue }) => {
+        try{
+            const isAuth = Cookies.get('isAuth') === 'true';
+            const uid = Cookies.get('uid');
+                if(isAuth && uid){
+                    const userRef = doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid);
+                    const user = await getDoc(userRef);
+                    if(user.exists()){
+                        const userInfo = {
+                            userData: user.data() as userData,
+                            isAuth: isAuth
                         }
-                    })
+                        return userInfo;
+                    }else{
+                        throw new Error("User not found");
+                    }
                 }else{
-                    rejectWithValue('Ինչ որ բան սխալ գնաց։');
+                    throw new Error("Not authenticated");
                 }
-          });
-        });
+        }catch(error: any){
+            rejectWithValue(error.message);
+        }    
     }
 );
 
@@ -71,9 +72,11 @@ const userDataSlice = createSlice({
             state.loading = true;
         })
         .addCase(fetchUserData.fulfilled, (state, action) => {                        
-            state.authUserInfo.isAuth = true;
-            state.authUserInfo.userData = action.payload;            
             state.loading = false;
+            if(action.payload?.userData && action.payload.isAuth){
+                state.authUserInfo.userData = action.payload.userData;
+                state.authUserInfo.isAuth = action.payload.isAuth;
+            }
         })
         .addCase(fetchUserData.rejected, (state, action) => {
             state.loading = false;
@@ -81,7 +84,7 @@ const userDataSlice = createSlice({
             state.authUserInfo.isAuth = false;
         })
         .addCase(messagesHistory.fulfilled, (state, action) => {
-            state.authUserInfo.messages = action.payload
+            state.authUserInfo.messages = action.payload;
         })
         .addCase(messagesHistory.rejected, (state) => {
             state.authUserInfo.messages = null;

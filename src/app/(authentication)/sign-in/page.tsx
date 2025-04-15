@@ -4,48 +4,54 @@ import { Form, notification } from 'antd';
 import { useDispatch } from 'react-redux';
 import { fetchUserData, setIsAuth } from '@/state-management/slices/userSlice';
 import { useState } from 'react';
-import { getIdToken, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/services/firebase';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ROUTE_PATHS } from '@/utilis/constants';
 import { login } from '@/types/auth';
 import { AppDispatch } from '@/state-management/store';
+import Cookies from 'js-cookie';
 
 const Login = () => {
     const [ form ] = Form.useForm();
     const router = useRouter();
     const [ loading, setLoading ] = useState<boolean>( false );
+    const [ error, setError ] = useState<string>('');
     const dispatch = useDispatch<AppDispatch>();
 
     const handleLogin = async (values: login) => {
       setLoading( true );
       try{
       const { email, password } = values;
-      await signInWithEmailAndPassword( auth, email, password );
+      const user = await signInWithEmailAndPassword( auth, email, password );
 
       dispatch(fetchUserData());
       dispatch(setIsAuth(true));
+
+      Cookies.set("isAuth", 'true', { expires: 1});
+      Cookies.set('uid', user.user.uid, { expires: 1});
 
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-      })
-    if (res.ok) {
-      router.push(ROUTE_PATHS.HOME);
-    } else {
-      notification.error({
-        message: 'Authentication failed, please try again.',
       });
-    }
-    form.resetFields();
-    return res.json();
-      }catch( error ){
-              notification.error({
-                      message:'Invalid Login Credentials', 
-              })
+
+      if (res.ok) {
+        router.push(ROUTE_PATHS.HOME);
+      } else {
+        setError('Authentication failed, please try again.');
+        notification.error({
+          message: 'Authentication failed, please try again.',
+        });
+      }
+
+     form.resetFields();
+      }catch( error: any ){
+        console.log(error.message);
+        setError(error.message);
       }finally{
               setLoading( false );
       };
@@ -70,6 +76,7 @@ const Login = () => {
       <input
         type="email"
         placeholder="Your email*"
+        onChange={() => setError('')}
         className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-400 shadow-inner shadow-black focus:outline-none focus:ring-2 focus:ring-violet-600"
       />
     </Form.Item>
@@ -84,10 +91,11 @@ const Login = () => {
       <input
         type="password"
         placeholder="Your password*"
+        onChange={() => setError('')}
         className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white shadow-inner shadow-black focus:outline-none focus:ring-2 focus:ring-violet-600"
       />
     </Form.Item>
-
+    <p style={{color: 'red'}}>{error}</p>
     <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 pt-4">
       <button
         type="submit"
