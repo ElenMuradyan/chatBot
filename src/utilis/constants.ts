@@ -8,6 +8,7 @@ export const ROUTE_PATHS = {
     AIPOWEREDCHATBOT: '/functions/AiPoweredChatbot',
     IMAGEGENERATION: '/functions/ImageGeneration',
     WRITTINGASSISTANT: 'functions/WrittingAssistant',
+    IMAGERECOGNITION: 'functions/ImageRecognition',
 
     DRAFT_EMAIL: '/functions/WrittingAssistant/email',
     WRITE_ESSAY: '/functions/WrittingAssistant/essay',
@@ -38,6 +39,25 @@ export const FIRESTORE_PATH_NAMES = {
     THREADS: 'threads'
 }
 
+export const recognitionPrompts = [
+  "What is in this image?",
+  "Describe the objects in this image.",
+  "What is the background scene?",
+  "Identify any animals in the image.",
+  "What is the person in the image doing?",
+  "Describe the emotion on the person's face.",
+  "What time of day is it in this image?",
+  "Is this a real photo or an illustration?",
+  "Can you summarize what is happening?",
+  "Identify the location or setting if possible.",
+  "Is there any text in this image? What does it say?",
+  "What style is this image (photorealistic, cartoon, etc.)?",
+  "What year or era does this image look like it's from?",
+  "What’s unusual or interesting about this image?",
+  "Are there any famous landmarks in this image?"
+];
+
+export const errorMessage = '🚧 Note to Viewers. Currently, image recognition and description features are limited due to insufficient API credits. I’m actively working on upgrading the service to restore full functionality. Thanks for your patience and understanding!'
 export const CHATBOT_PERSONALITIES = {
     'Good Assistant': 
     'You are a helpful, cheerful assistant who is always ready to provide accurate answers and support. You speak clearly, respectfully, and stay focused on solving the user\'s needs with a positive attitude.',

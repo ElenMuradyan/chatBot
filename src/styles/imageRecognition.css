@@ -1,0 +1,97 @@
+.upload .ant-upload:hover {
+  border-color: #1890ff !important;
+  background-color: #ffffff31 !important;
+}
+
+.upload .ant-upload {
+  width: 300px !important;
+  height: 300px !important;
+  background: linear-gradient(135deg, #00ffff83, #892be261, #00fbff6d, #ff00ff5f) !important;
+  border: 1px dashed #d9d9d9 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+}
+
+.imageRecognitionWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+select {
+  padding: 10px 16px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='14' height='8' viewBox='0 0 14 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23999' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+}
+
+select:hover {
+  border-color: #c0c0c0;
+}
+
+select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  background-color: #fff;
+}
+
+option {
+  font-size: 15px;
+  padding: 10px;
+  color: #333;
+  background-color: #fff;
+}
+
+.imageDescriptionContainer{
+  width: 50%;
+  display: flex;
+  height: 50vh;
+  align-items: center;
+  border-radius: 50px;
+  padding: 10px;
+  background: linear-gradient(135deg, #00000083, #441075, #065455d5, #4e024e) !important;
+  text-align: center;
+  flex-direction: column;
+}
+
+.user{
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.48);
+  border: 1px solid rgba(153, 204, 255, 0.6);
+  border-radius: 0px 50px 50px 50px;
+}
+
+.loader {
+  width: 100px;
+  aspect-ratio: 1;
+  background: #006cff;
+  margin-right: auto;
+  border-radius: 50%;
+  animation: l1 3s infinite linear;
+}
+@keyframes l1{
+  12.5% {border-radius: 37% 63% 70% 30% / 30% 62% 38% 70%}
+  25%   {border-radius: 50% 50% 70% 30% / 52% 62% 38% 48%}
+  37.5% {border-radius: 33% 67% 18% 82% / 52% 75% 25% 48%}
+  50%   {border-radius: 73% 27% 18% 82% / 52% 32% 68% 48%}
+  62.5% {border-radius: 73% 27% 74% 26% / 64% 32% 68% 36%}
+  75%   {border-radius: 84% 16% 15% 85% / 55% 79% 21% 45%}
+  87.5% {border-radius: 12% 88% 69% 31% / 10% 66% 34% 90%}
+}

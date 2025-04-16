@@ -45,9 +45,10 @@ export default function ImageGeneration(){
 
     return(
         <div className="imageGenerationContainer">
-            <div className='inputContainer'>
+            <div className='generationInputContainer'>
             <h1>Write Image Prompt</h1>
             <input 
+            className='generationInput'
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}

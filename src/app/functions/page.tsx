@@ -41,7 +41,7 @@ export default function Functions() {
       
           {/* Image Recognition */}
           <div className="function-card" style={{ backgroundImage: `url(${image.src})`}}>
-            <button className="function-btn">
+            <button className="function-btn" onClick={() => push(`${ROUTE_PATHS.IMAGERECOGNITION}`)}>
               Image Recognition
             </button>
           </div>

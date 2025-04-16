@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 
-input {
+.generationInput {
     width: 100%;
     max-width: 600px;
     padding: 1rem;
@@ -24,7 +24,7 @@ input {
     transition: box-shadow 0.3s ease;
 }
 
-input:focus {
+.generationInput:focus {
     box-shadow: 0 0 12px rgba(255, 0, 208, 0.8);
 }
 
@@ -33,9 +33,8 @@ button:disabled {
     cursor: not-allowed;
 }
 
-.inputContainer{
+.generationInputContainer{
     width: 50%;
-    height: 100vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -52,7 +51,7 @@ button:disabled {
 .imageWrapper {
     position: relative;
     height: auto;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease; 
     opacity: 0;
     animation: fadeIn 1s forwards;
     aspect-ratio: 1 / 1; 
