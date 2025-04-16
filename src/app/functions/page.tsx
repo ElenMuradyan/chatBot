@@ -76,7 +76,7 @@ export default function Functions() {
   
           {/* Predictive Analytics */}
           <div className="function-card" style={{ backgroundImage: `url(${writing.src})` }}>
-            <button className="function-btn">
+            <button className="function-btn" onClick={() => push(ROUTE_PATHS.WRITTINGASSISTANT)}>
             AI Writing Assistant
             </button>
           </div>

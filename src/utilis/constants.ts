@@ -4,13 +4,38 @@ export const ROUTE_PATHS = {
     SIGN_UP: '/sign-up',
     FUNCTIONS: '/functions',
     ABOUT: '/about',
+
     AIPOWEREDCHATBOT: '/functions/AiPoweredChatbot',
     IMAGEGENERATION: '/functions/ImageGeneration',
+    WRITTINGASSISTANT: 'functions/WrittingAssistant',
+
+    DRAFT_EMAIL: '/functions/WrittingAssistant/email',
+    WRITE_ESSAY: '/functions/WrittingAssistant/essay',
+    WRITE_BLOG: '/functions/WrittingAssistant/blog',
+    IMPROVE_TEXT: '/functions/WrittingAssistant/improve',
+    EXPAND_SHORTEN: '/functions/WrtitingAssistant/expand-shorten',
+    REWRITE_STYLE: '/functions/WrittingAssistant/rewrite',
+  
 }
+
+export const writingTaskPlaceholders = {
+  email: 'Enter your email purpose here',
+  essay: 'Enter your essay text here',
+  blog: 'Enter the content for your blog post',
+  improve_text: 'Improve the grammar and tone of this text',
+  expand_shorten: 'Expand or shorten the following text',
+  rewrite_style: 'Rewrite the text in a different style',
+  professional_email: 'Write a formal business email',
+  social_media: 'Write a caption for your social media post',
+  summary: 'Provide a summary of the text',
+  creative_writing: 'Write a creative piece of content',
+  business_letter: 'Write a formal business letter'
+};
 
 export const FIRESTORE_PATH_NAMES = {
     REGISTERED_USERS: 'users', 
     MESSAGES: 'messages', 
+    THREADS: 'threads'
 }
 
 export const CHATBOT_PERSONALITIES = {

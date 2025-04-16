@@ -15,8 +15,9 @@ export default function ChatHeader () {
     const { push } = useRouter();
     const [ displayHistory, setDisplayHistory ] = useState<boolean>(false);
       const pathName = usePathname();
-      const isChatPage = pathName.includes(ROUTE_PATHS.AIPOWEREDCHATBOT);
+      const isChatPage = (pathName.includes(ROUTE_PATHS.AIPOWEREDCHATBOT) || pathName.includes(ROUTE_PATHS.WRITTINGASSISTANT)) && !pathName.endsWith('WrittingAssistant');
     
+    console.log(messages);
     
     return(
         <div className="chatHeaderContainer">
@@ -29,7 +30,9 @@ export default function ChatHeader () {
                             <div key={idx} className="historyItem" onClick={() => {push(`${ROUTE_PATHS.AIPOWEREDCHATBOT}/${key}`); setDisplayHistory(false)}}>
                                 <p>Date: {value.createdAt}</p>
                                 <p>Message: {value.messages[0].text}</p>
-                                <p>Personality: {value.personality}</p>
+                                {
+                                    value.personality && <p>Personality: {value.personality}</p>
+                                }
                             </div>
                         )
                     })

@@ -11,6 +11,7 @@ export interface fetchMessagesInterface {
     uid: string, 
     collectionName: string, 
     chatId: string,
+    functionName?: string
 }
 
 export interface fetchMessagesDataInterface {
@@ -20,25 +21,27 @@ export interface fetchMessagesDataInterface {
 
 export interface addMessageInterface {
     uid: string, 
-    personality: Personality, 
+    personality?: Personality, 
     collectionName: string, 
-    messages: message[]
+    messages: message[],
+    functionName?: string
 }
 
 export interface updateMessageInterface {
     uid: string, 
     collectionName: string,
     messages: message[], 
-    id: string
+    id: string,
+    functionName?: string
 }
 
 export interface formatMessagesForOpenRouterInterface {
     messages: message[], 
-    personality: Personality 
+    personality?: Personality 
 }
 
 export interface messageFromBackend {
     messages: message[], 
-    personality: Personality,
+    personality?: Personality,
     createdAt: string,
 }

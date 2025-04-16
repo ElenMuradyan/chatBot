@@ -5,9 +5,22 @@ export const formatMessagesForOpenRouter = ({messages, personality}: formatMessa
     return[
         { 
             role: 'system', 
-            content: CHATBOT_PERSONALITIES[personality]
+            content: personality && CHATBOT_PERSONALITIES[personality]
         }
 ,                  ...messages.map(msg => ({
+          role: msg.sender === 'user' ? 'user' : 'assistant',
+          content: msg.text
+        }))
+    ]
+}
+
+export const formatMessagesForWritingAssistant = ({messages}: formatMessagesForOpenRouterInterface) => {
+    return[
+        { 
+            role: 'system', 
+            content: 'You are a creative and helpful writing assistant.'
+        },
+        ...messages.map(msg => ({
           role: msg.sender === 'user' ? 'user' : 'assistant',
           content: msg.text
         }))
