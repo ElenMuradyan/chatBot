@@ -48,8 +48,9 @@ export const messagesHistory = createAsyncThunk(
     async ({collectionName, uid, functionName}: {collectionName: string, uid: string, functionName?: string}) => {        
         const history = functionName ? collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName, functionName, FIRESTORE_PATH_NAMES.THREADS) : collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName);
         const historySnapshot = await getDocs(history);
-        let messages: Record<string, messageFromBackend> = {};
-        historySnapshot.docs.forEach(doc => {messages[doc.id] = doc.data() as messageFromBackend});                
+        let messages: Record<string, messageFromBackend> = {};        
+        historySnapshot.docs.forEach(doc => {messages[doc.id] = doc.data() as messageFromBackend});      
+        console.log(messages)          
         return messages;   
     }
 )

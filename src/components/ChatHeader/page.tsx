@@ -3,7 +3,7 @@ import Image from "next/image";
 import icon from '../../app/favicon.ico';
 import { useSelector } from "react-redux";
 import { RootState } from "@/state-management/store";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { ROUTE_PATHS } from "@/utilis/constants";
 import { useState } from "react";
 import { BackwardOutlined } from "@ant-design/icons";
@@ -16,9 +16,7 @@ export default function ChatHeader () {
     const [ displayHistory, setDisplayHistory ] = useState<boolean>(false);
       const pathName = usePathname();
       const isChatPage = (pathName.includes(ROUTE_PATHS.AIPOWEREDCHATBOT) || pathName.includes(ROUTE_PATHS.WRITTINGASSISTANT)) && !pathName.endsWith('WrittingAssistant');
-    
-    console.log(messages);
-    
+        
     return(
         <div className="chatHeaderContainer">
          <div className={`historyContainer ${displayHistory ? 'show' : ''}`} > 
@@ -27,7 +25,15 @@ export default function ChatHeader () {
                 {
                    messages && Object.entries(messages).map(([key, value], idx) => {
                         return(
-                            <div key={idx} className="historyItem" onClick={() => {push(`${ROUTE_PATHS.AIPOWEREDCHATBOT}/${key}`); setDisplayHistory(false)}}>
+                            <div 
+                            key={idx} 
+                            className="historyItem" 
+                            onClick={() => {
+                                const elements = pathName.split('/');
+                                elements.pop();
+                                const newPathName = `${elements.join('/')}/${key}`
+                                push(newPathName); 
+                            setDisplayHistory(false)}}>
                                 <p>Date: {value.createdAt}</p>
                                 <p>Message: {value.messages[0].text}</p>
                                 {

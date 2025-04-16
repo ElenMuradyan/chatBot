@@ -31,35 +31,14 @@ export default function Functions() {
               AI-Powered Chatbot
             </button>
           </div>
-  
-          {/* Personalized Recommendations */}
-          <div className="function-card" style={{ backgroundImage:  `url(${recomendations.src})` }}>
-            <button className="function-btn">
-              Personalized Recommendations
-            </button>
-          </div>
-  
+    
           {/* AI Image Generation */}
           <div className="function-card" style={{ backgroundImage:  `url(${aiImage.src})` }}>
             <button className="function-btn" onClick={() => push(`${ROUTE_PATHS.IMAGEGENERATION}`)}>
               AI Image Generation
             </button>
           </div>
-  
-          {/* Data Analytics & Visualization */}
-          <div className="function-card" style={{ backgroundImage: `url(${data.src})` }}>
-            <button className="function-btn">
-              Data Analytics & Visualization
-            </button>
-          </div>
-  
-          {/* Voice Recognition */}
-          <div className="function-card" style={{ backgroundImage:  `url(${voice.src})` }}>
-            <button className="function-btn">
-              Voice Recognition
-            </button>
-          </div>
-  
+      
           {/* Image Recognition */}
           <div className="function-card" style={{ backgroundImage: `url(${image.src})`}}>
             <button className="function-btn">

@@ -23,7 +23,7 @@ export default function ChatContainer ({messages, loading}: chatInterface) {
                     : ''
                 }`}
                 >
-                {isLast && idx ? <BotMessage text={msg.text} /> : msg.text}
+                {isLast && msg.sender === 'bot' && idx ? <BotMessage text={msg.text} /> : msg.text}
                 </div>)
           }
           )} 
