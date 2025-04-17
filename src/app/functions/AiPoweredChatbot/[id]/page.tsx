@@ -33,7 +33,7 @@ export default function ChatPage() {
   }, [dispatch]);
 
   useEffect(() => {
-    userData && dispatch(messagesHistory({collectionName: 'AiPoweredChatbot', uid: userData.uid}))
+    userData && dispatch(messagesHistory({collectionName: 'AiPoweredChatbot'}))
   }, [userData]);
 
   useEffect(() => {

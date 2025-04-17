@@ -5,7 +5,7 @@ import { fetchUserData } from "@/state-management/slices/userSlice";
 import { AppDispatch } from "@/state-management/store";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-
+import Cookies from 'js-cookie';
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
 

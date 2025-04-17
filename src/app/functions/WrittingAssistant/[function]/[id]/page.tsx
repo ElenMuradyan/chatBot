@@ -28,7 +28,7 @@ export default function WrittingChatPage() {
   }, [dispatch]);
 
     useEffect(() => {
-      userData && dispatch(messagesHistory({collectionName: 'WrittingAssistant', uid: userData.uid, functionName: functionName as string}))
+      userData && dispatch(messagesHistory({collectionName: 'WrittingAssistant', functionName: functionName as string}))
     }, [userData]);
   
   useEffect(() => {

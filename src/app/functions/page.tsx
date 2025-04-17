@@ -48,7 +48,7 @@ export default function Functions() {
   
           {/* Sentiment Analysis */}
           <div className="function-card" style={{ backgroundImage: `url(${sentiment.src})` }}>
-            <button className="function-btn">
+            <button className="function-btn" onClick={() => push(ROUTE_PATHS.SENTIMENTANALYSIS)}>
               Sentiment Analysis
             </button>
           </div>

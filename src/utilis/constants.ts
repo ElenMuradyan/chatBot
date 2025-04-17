@@ -7,8 +7,9 @@ export const ROUTE_PATHS = {
 
     AIPOWEREDCHATBOT: '/functions/AiPoweredChatbot',
     IMAGEGENERATION: '/functions/ImageGeneration',
-    WRITTINGASSISTANT: 'functions/WrittingAssistant',
-    IMAGERECOGNITION: 'functions/ImageRecognition',
+    WRITTINGASSISTANT: '/functions/WrittingAssistant',
+    IMAGERECOGNITION: '/functions/ImageRecognition',
+    SENTIMENTANALYSIS: '/functions/SentimentAnalysis',
 
     DRAFT_EMAIL: '/functions/WrittingAssistant/email',
     WRITE_ESSAY: '/functions/WrittingAssistant/essay',

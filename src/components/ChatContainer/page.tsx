@@ -1,10 +1,13 @@
 import { useEffect, useRef } from "react";
 import { BotMessage } from "../BotMessage/page";
 import { chatInterface } from "@/types/chatInterface";
+import { useParams } from "next/navigation";
+import { CopyOutlined } from "@ant-design/icons";
 
 export default function ChatContainer ({messages, loading}: chatInterface) {
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);  
-
+    const { functionName } = useParams();
+    
     useEffect(() => {
       messagesContainerRef.current?.scrollIntoView({behavior: 'smooth'})
     }, [messages]);
@@ -13,7 +16,7 @@ export default function ChatContainer ({messages, loading}: chatInterface) {
         <div className="messagesContainer">
           {messages?.map((msg, idx) => {
             const isLast = idx === messages.length - 1;
-            
+            const botMessage = msg.sender === 'bot';
             return(
                 <div
                 key={idx}
@@ -23,7 +26,10 @@ export default function ChatContainer ({messages, loading}: chatInterface) {
                     : ''
                 }`}
                 >
-                {isLast && msg.sender === 'bot' && idx ? <BotMessage text={msg.text} /> : msg.text}
+                {isLast && botMessage && idx ? <BotMessage text={msg.text} /> : msg.text}
+                {
+                  functionName && botMessage && <button><CopyOutlined onClick={() => navigator.clipboard.writeText(msg.text)}/></button>
+                }
                 </div>)
           }
           )} 

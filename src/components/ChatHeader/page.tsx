@@ -1,22 +1,35 @@
 'use client'
 import Image from "next/image";
 import icon from '../../app/favicon.ico';
-import { useSelector } from "react-redux";
-import { RootState } from "@/state-management/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/state-management/store";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { ROUTE_PATHS } from "@/utilis/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BackwardOutlined } from "@ant-design/icons";
 
 import '../../styles/header.css';
+import { fetchMessages } from "@/utilis/helpers/fetchMessages";
+import { fetchUserData, messagesHistory } from "@/state-management/slices/userSlice";
 
 export default function ChatHeader () {
-    const { messages } = useSelector((state: RootState) => state.userData.authUserInfo);
+    const { messages, userData } = useSelector((state: RootState) => state.userData.authUserInfo);
     const { push } = useRouter();
     const [ displayHistory, setDisplayHistory ] = useState<boolean>(false);
       const pathName = usePathname();
       const isChatPage = (pathName.includes(ROUTE_PATHS.AIPOWEREDCHATBOT) || pathName.includes(ROUTE_PATHS.WRITTINGASSISTANT)) && !pathName.endsWith('WrittingAssistant');
-        
+    const dispatch = useDispatch<AppDispatch>();
+    const { function: functionName } = useParams();
+
+    useEffect(() => {
+        dispatch(fetchUserData());
+    }, [pathName]);
+
+    const handleDisplayStory = () => {
+        setDisplayHistory(true);
+        dispatch(messagesHistory({collectionName: pathName.split('/')[2], functionName: functionName as string}));
+    };
+      
     return(
         <div className="chatHeaderContainer">
          <div className={`historyContainer ${displayHistory ? 'show' : ''}`} > 
@@ -48,7 +61,7 @@ export default function ChatHeader () {
         <div className="headerContainer">
         <Image src={icon} alt="icon" width={50}/>
         {
-            isChatPage && <button className="headerButton" onClick={() => setDisplayHistory(true)}>History</button>
+            isChatPage && <button className="headerButton" onClick={handleDisplayStory}>History</button>
         }
         </div>
 

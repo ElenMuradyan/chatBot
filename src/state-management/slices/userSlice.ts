@@ -45,13 +45,17 @@ export const fetchUserData = createAsyncThunk(
 
 export const messagesHistory = createAsyncThunk(
     'users/fetchHistory',
-    async ({collectionName, uid, functionName}: {collectionName: string, uid: string, functionName?: string}) => {        
-        const history = functionName ? collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName, functionName, FIRESTORE_PATH_NAMES.THREADS) : collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName);
-        const historySnapshot = await getDocs(history);
-        let messages: Record<string, messageFromBackend> = {};        
-        historySnapshot.docs.forEach(doc => {messages[doc.id] = doc.data() as messageFromBackend});      
-        console.log(messages)          
-        return messages;   
+    async ({collectionName, functionName}: {collectionName: string, functionName?: string}) => {        
+        const uid = Cookies.get('uid');
+        if(uid){            
+            const history = functionName ? collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName, functionName, FIRESTORE_PATH_NAMES.THREADS) : collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName);
+            const historySnapshot = await getDocs(history);            
+            let messages: Record<string, messageFromBackend> = {};        
+            historySnapshot.docs.forEach(doc => {messages[doc.id] = doc.data() as messageFromBackend});      
+            return messages;       
+        }else{
+            return null;
+        }
     }
 )
     

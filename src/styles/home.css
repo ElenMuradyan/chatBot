@@ -117,3 +117,10 @@ button {
   .function-btn:focus {
     outline: none;
   }
+
+  .message{
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6; /* Add space between lines */
+    margin-bottom: 1em; /* Space between messages */
+    white-space: pre-wrap; /* Preserve any line breaks */  
+  }

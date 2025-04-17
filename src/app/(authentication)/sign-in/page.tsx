@@ -31,7 +31,7 @@ const Login = () => {
 
       Cookies.set("isAuth", 'true', { expires: 1});
       Cookies.set('uid', user.user.uid, { expires: 1});
-
+      
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
