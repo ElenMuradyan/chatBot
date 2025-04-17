@@ -46,7 +46,7 @@ export default function ChatHeader () {
                                 elements.pop();
                                 const newPathName = `${elements.join('/')}/${key}`
                                 push(newPathName); 
-                            setDisplayHistory(false)}}>
+                                setDisplayHistory(false)}}>
                                 <p>Date: {value.createdAt}</p>
                                 <p>Message: {value.messages[0].text}</p>
                                 {

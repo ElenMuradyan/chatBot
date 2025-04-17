@@ -8,7 +8,6 @@ export interface ChatStartInterface {
 };
 
 export interface fetchMessagesInterface {
-    uid: string, 
     collectionName: string, 
     chatId: string,
     functionName?: string
@@ -20,7 +19,6 @@ export interface fetchMessagesDataInterface {
 }
 
 export interface addMessageInterface {
-    uid: string, 
     personality?: Personality, 
     collectionName: string, 
     messages: message[],
@@ -28,7 +26,6 @@ export interface addMessageInterface {
 }
 
 export interface updateMessageInterface {
-    uid: string, 
     collectionName: string,
     messages: message[], 
     id: string,

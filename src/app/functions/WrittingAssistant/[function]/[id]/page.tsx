@@ -33,8 +33,8 @@ export default function WrittingChatPage() {
   
   useEffect(() => {
     async function fetch() {
-      if(id && userData){
-        const data = await fetchMessages({uid: userData.uid, chatId: id as string, collectionName: 'WrittingAssistant', functionName: functionName as string});
+      if(id){
+        const data = await fetchMessages({chatId: id as string, collectionName: 'WrittingAssistant', functionName: functionName as string});
         if(data){
           setMessages(data.messages);
         }
@@ -57,12 +57,12 @@ export default function WrittingChatPage() {
         const response = await sendMessageToWrittingAssistant({messages: [...messages,  { sender: 'user', text: input }], functionName: functionName as string});  
 
         if(!messages.length && userData){
-          const id = await addMessagesDoc({ uid: userData?.uid, collectionName: 'WrittingAssistant' ,messages: [{sender: 'user', text: message}, { sender: 'bot', text: response}], functionName: functionName as string});
+          const id = await addMessagesDoc({ collectionName: 'WrittingAssistant' ,messages: [{sender: 'user', text: message}, { sender: 'bot', text: response}], functionName: functionName as string});
           window.history.replaceState(null, '', `${ROUTE_PATHS.FUNCTIONS}/${functionName}/${id}`);
           setRouteId(id as string);
         }else{
           const updateId = id === 'newChat' ? routeId : id;
-         userData && updateMessagesDoc({ uid: userData.uid, collectionName: 'WrittingAssistant', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string, functionName: functionName as string});
+         userData && updateMessagesDoc({ collectionName: 'WrittingAssistant', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string, functionName: functionName as string});
         };
   
         setMessages((prev) => [

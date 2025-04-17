@@ -6,7 +6,7 @@ import { CopyOutlined } from "@ant-design/icons";
 
 export default function ChatContainer ({messages, loading}: chatInterface) {
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);  
-    const { functionName } = useParams();
+    const { function: functionName } = useParams();
     
     useEffect(() => {
       messagesContainerRef.current?.scrollIntoView({behavior: 'smooth'})
@@ -26,10 +26,10 @@ export default function ChatContainer ({messages, loading}: chatInterface) {
                     : ''
                 }`}
                 >
-                {isLast && botMessage && idx ? <BotMessage text={msg.text} /> : msg.text}
                 {
-                  functionName && botMessage && <button><CopyOutlined onClick={() => navigator.clipboard.writeText(msg.text)}/></button>
+                  functionName && botMessage && <button className="headerButton"><CopyOutlined onClick={() => navigator.clipboard.writeText(msg.text)}/></button>
                 }
+                {isLast && botMessage && idx ? <BotMessage text={msg.text} /> : msg.text}
                 </div>)
           }
           )} 

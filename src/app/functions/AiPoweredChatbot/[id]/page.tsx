@@ -39,7 +39,7 @@ export default function ChatPage() {
   useEffect(() => {
     async function fetch() {
       if(id && userData){
-        const data = await fetchMessages({uid: userData.uid, chatId: id as string, collectionName: 'AiPoweredChatbot'});
+        const data = await fetchMessages({ chatId: id as string, collectionName: 'AiPoweredChatbot'});
         if(data){
           setMessages(data.messages);
           setPersonality(data.personality);
@@ -63,12 +63,12 @@ export default function ChatPage() {
         const response = await SendToAiChatbot({messages: [...messages,  { sender: 'user', text: input }], personality});
   
         if(!messages.length && userData){
-          const id = await addMessagesDoc({ uid: userData?.uid, collectionName: 'AiPoweredChatbot', personality ,messages: [{sender: 'user', text: message}, { sender: 'bot', text: response}]});
+          const id = await addMessagesDoc({ collectionName: 'AiPoweredChatbot', personality ,messages: [{sender: 'user', text: message}, { sender: 'bot', text: response}]});
           window.history.replaceState(null, '', `${ROUTE_PATHS.AIPOWEREDCHATBOT}/${id}`);
           setRouteId(id as string);
         }else{
           const updateId = id === 'newChat' ? routeId : id;
-         userData && updateMessagesDoc({ uid: userData.uid, collectionName: 'AiPoweredChatbot', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string});
+         userData && updateMessagesDoc({ collectionName: 'AiPoweredChatbot', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string});
         };
   
         setMessages((prev) => [
