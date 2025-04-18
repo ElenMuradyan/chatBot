@@ -1,11 +1,8 @@
-import { RootState } from "@/state-management/store";
 import { ROUTE_PATHS } from "@/utilis/constants";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
 
 export default function Home () {
     const { push } = useRouter();
-    const { isAuth } = useSelector((state: RootState) => state.userData.authUserInfo);
 
     return(
         <div className="home">
@@ -17,13 +14,7 @@ export default function Home () {
           </p>
           <h1>Say hello to the future of communication. Let's get started!</h1>
           <div className="flex space-x-4">
-            <button onClick={() => {              
-                  if (isAuth) {
-                    push(`${ROUTE_PATHS.AIPOWEREDCHATBOT}/newChat`);
-                  } else {
-                    push(ROUTE_PATHS.SIGN_IN);
-                  }            
-            }}>
+            <button onClick={() => push(`${ROUTE_PATHS.AIPOWEREDCHATBOT}/newChat`)}>
               Start Chatting
             </button>
             <button onClick={() => push(ROUTE_PATHS.ABOUT)}>

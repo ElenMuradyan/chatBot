@@ -11,7 +11,6 @@ import { useRouter } from 'next/navigation';
 import { ROUTE_PATHS } from '@/utilis/constants';
 import { login } from '@/types/auth';
 import { AppDispatch } from '@/state-management/store';
-import Cookies from 'js-cookie';
 
 const Login = () => {
     const [ form ] = Form.useForm();
@@ -28,15 +27,15 @@ const Login = () => {
 
       dispatch(fetchUserData());
       dispatch(setIsAuth(true));
-
-      Cookies.set("isAuth", 'true', { expires: 1});
-      Cookies.set('uid', user.user.uid, { expires: 1});
       
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          uid: user.user.uid,
+        })
       });
 
       if (res.ok) {

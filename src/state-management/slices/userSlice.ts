@@ -5,6 +5,7 @@ import { FIRESTORE_PATH_NAMES } from "@/utilis/constants";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import Cookies from 'js-cookie';
 import { messageFromBackend } from "@/types/fetchMessages";
+import { getIsAuth } from "@/utilis/helpers/getIsAuth";
 
 const initialState: userDataSliceType = {
     loading: true,
@@ -20,23 +21,24 @@ export const fetchUserData = createAsyncThunk(
     "users/fetchUserData",
     async (_, { rejectWithValue }) => {
         try{
-            const isAuth = Cookies.get('isAuth') === 'true';
-            const uid = Cookies.get('uid');
-                if(isAuth && uid){
-                    const userRef = doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid);
-                    const user = await getDoc(userRef);
-                    if(user.exists()){
-                        const userInfo = {
-                            userData: user.data() as userData,
-                            isAuth: isAuth
-                        }
-                        return userInfo;
-                    }else{
-                        throw new Error("User not found");
+            const { uid, isAuth} = await getIsAuth();
+console.log(isAuth);
+
+            if(isAuth && uid){
+                const userRef = doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid);
+                const user = await getDoc(userRef);
+                if(user.exists()){
+                    const userInfo = {
+                        userData: user.data() as userData,
+                        isAuth: isAuth
                     }
+                    return userInfo;
                 }else{
-                    throw new Error("Not authenticated");
+                    throw new Error("User not found");
                 }
+            }else{
+                throw new Error("Not authenticated");
+            }
         }catch(error: any){
             rejectWithValue(error.message);
         }    
