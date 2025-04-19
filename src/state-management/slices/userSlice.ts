@@ -40,8 +40,9 @@ export const fetchUserData = createAsyncThunk(
             }else{
                 throw new Error("Not authenticated");
             }
-        }catch(error: any){
-           return rejectWithValue(error.message);
+        }catch( error ){
+            const err = error as Error;
+            return rejectWithValue(err.message);
         }    
     }
 );
@@ -56,7 +57,7 @@ export const messagesHistory = createAsyncThunk(
         if(uid){            
             const history = functionName ? collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName, functionName, FIRESTORE_PATH_NAMES.THREADS) : collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName);
             const historySnapshot = await getDocs(history);            
-            let messages: Record<string, messageFromBackend> = {};        
+            const messages: Record<string, messageFromBackend> = {};        
             historySnapshot.docs.forEach(doc => {messages[doc.id] = doc.data() as messageFromBackend});      
             return messages;       
         }else{

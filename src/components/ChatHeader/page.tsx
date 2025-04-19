@@ -5,15 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state-management/store";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { ROUTE_PATHS } from "@/utilis/constants";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BackwardOutlined } from "@ant-design/icons";
-
+import { messagesHistory } from "@/state-management/slices/userSlice";
 import '../../styles/header.css';
-import { fetchMessages } from "@/utilis/helpers/fetchMessages";
-import { fetchUserData, messagesHistory } from "@/state-management/slices/userSlice";
+import Link from "next/link";
 
 export default function ChatHeader () {
-    const { messages, userData } = useSelector((state: RootState) => state.userData.authUserInfo);
+    const { messages } = useSelector((state: RootState) => state.userData.authUserInfo);
     const { push } = useRouter();
     const [ displayHistory, setDisplayHistory ] = useState<boolean>(false);
     const pathName = usePathname();
@@ -62,7 +61,7 @@ export default function ChatHeader () {
         </div>
 
         <nav className="flex space-x-6">
-          <a href="/">Home</a>
+        <Link href="/">Home</Link>
         </nav>
       </header>
         </div>

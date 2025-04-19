@@ -36,8 +36,10 @@ const Register = () => {
 
             form.resetFields();
             push(ROUTE_PATHS.SIGN_IN);
-        } catch (error: any) {
-          setError(error.message);
+        } catch (error) {
+          const err = error as Error;
+          console.log(err.message);
+          setError(err.message);
         }finally{
             setLoading(false);
     }};

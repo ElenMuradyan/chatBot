@@ -34,9 +34,10 @@ export default function ImageGeneration(){
                   message: 'No image returned from server.',
                 });
               }
-                }catch(error: any){
+            }catch( error ){
+                const err = error as Error;
             notification.error({
-                message: error.message || 'Image generation failed.',                
+                message: err.message || 'Image generation failed.',                
             })
         }finally{
             setLoading(false);

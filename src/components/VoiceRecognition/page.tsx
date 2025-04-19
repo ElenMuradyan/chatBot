@@ -1,14 +1,7 @@
-import { voiceRecognitionInterface } from '@/types/voiceRecognition';
-import { AudioOutlined, CloseCircleOutlined, LoadingOutlined } from '@ant-design/icons';
-import '../../styles/voiceRecognition.css';
 import { useRef, useState } from 'react';
-
-declare global {
-  interface Window {
-    SpeechRecognition: any;
-    webkitSpeechRecognition: any;
-  }
-}
+import { AudioOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import '../../styles/voiceRecognition.css';
+import { voiceRecognitionInterface } from '@/types/voiceRecognition';
 
 export default function VoiceRecognition({
   setVoiceMessage,
@@ -16,10 +9,10 @@ export default function VoiceRecognition({
   endFuncton,
   loading
 }: voiceRecognitionInterface) {
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null); 
   const [isListening, setIsListening] = useState(false);
-  const [ message, setMessage ] = useState<string>('Turn on the voice Recording and start talking.');
-  const [ speaking, setSpeaking ] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('Turn on the voice Recording and start talking.');
+  const [speaking, setSpeaking] = useState<boolean>(false);
 
   const startListening = () => {
     setMessage('Turn on the voice Recording and start talking.');
@@ -39,16 +32,16 @@ export default function VoiceRecognition({
       setIsListening(true);
     };
 
-    recognition.onresult = async (event: any) => {
+    recognition.onresult = async (event: SpeechRecognitionEvent) => {
       const transcript = event.results[0][0].transcript;
       gotResult = true;
 
-      if(transcript){
+      if (transcript) {
         setVoiceMessage(transcript);
         const answer = await endFuncton();
         setSpeaking(true);
-        speak(answer);  
-      }else{
+        speak(answer);
+      } else {
         setMessage('Sorry I didn\'t understand what you said.');
       }
     };
@@ -59,12 +52,12 @@ export default function VoiceRecognition({
     };
 
     recognition.onend = () => {
-      stopListening()
+      stopListening();
       setIsListening(false);
 
       if (!gotResult) {
         setMessage("I didn't catch anything. Try again?");
-      }    
+      }
     };
 
     recognitionRef.current = recognition;
@@ -75,9 +68,9 @@ export default function VoiceRecognition({
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US';
     utterance.onend = () => {
-        setSpeaking(false);
-      };
-  
+      setSpeaking(false);
+    };
+
     speechSynthesis.speak(utterance);
   };
 
@@ -86,28 +79,28 @@ export default function VoiceRecognition({
       recognitionRef.current.stop();
     }
     if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
-      }
-      setSpeaking(false);
-    };
-    
-    return (
-        <div className="voiceRecognitionContainer" onClick={() => stopListening()}>
-            {isListening && <div className="listenLoader" />}   
-            {speaking && <div className="speakingLoader" />}  
-            {loading && <div className='voiceLoader' />} 
-            {!loading && !speaking && !isListening && <h1>{message}</h1>}
-        
-            <h1>{isListening ? '...Listening' : ''}</h1>
-            
-            <div className='buttonContainer'>
-            <button onClick={startListening}>
-                <AudioOutlined style={{ color: isListening ? 'white' : 'red' }} />
-            </button>
-            <button onClick={() => setVoiceRecording(false)}><CloseCircleOutlined /></button>
-            </div>
-        
-            <h1>Click anywhere to send the message.</h1>
-        </div>
-    );      
+      speechSynthesis.cancel();
+    }
+    setSpeaking(false);
+  };
+
+  return (
+    <div className="voiceRecognitionContainer" onClick={() => stopListening()}>
+      {isListening && <div className="listenLoader" />}
+      {speaking && <div className="speakingLoader" />}
+      {loading && <div className='voiceLoader' />}
+      {!loading && !speaking && !isListening && <h1>{message}</h1>}
+
+      <h1>{isListening ? '...Listening' : ''}</h1>
+
+      <div className='buttonContainer'>
+        <button onClick={startListening}>
+          <AudioOutlined style={{ color: isListening ? 'white' : 'red' }} />
+        </button>
+        <button onClick={() => setVoiceRecording(false)}><CloseCircleOutlined /></button>
+      </div>
+
+      <h1>Click anywhere to send the message.</h1>
+    </div>
+  );
 }

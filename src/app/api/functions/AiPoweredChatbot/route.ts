@@ -22,8 +22,9 @@ export async function POST(request: Request) {
         const reply = data.choices?.[0]?.message?.content  || 'No response from model.';
 
         return new Response(JSON.stringify({reply}), {status: 200});
-    }catch(error: any){
-        console.error('Error with OpenAI API:', error);
+    }catch( error ){
+        const err = error as Error;
+        console.error('Error with OpenAI API:', err);
         return new Response(JSON.stringify({ error: 'Failed to generate response' }), { status: 500 });    
     }
 }

@@ -10,7 +10,7 @@ import RecognizeImage from '@/utilis/helpers/RecognizeImage';
 import '../../../styles/imageGeneration.css';
 import '../../../styles/imageRecognition.css';
 
-export default function imageRecognition(){
+export default function ImageRecognition(){
     const [ imageUrl, setImageUrl ] = useState<string>('');
     const [ loading, setLoading ] = useState<boolean>(false);
     const [ prompt, setPrompt ] = useState<string>('');
@@ -27,8 +27,9 @@ export default function imageRecognition(){
             setLoading(true);
             const description = await RecognizeImage({ imageUrl, prompt});
             setDescription(await description);
-            }catch(error: any){
-                console.log(error.message);
+        }catch( error ){
+        const err = error as Error;
+            console.log(err.message);
         }finally{
             setLoading(false);
         }

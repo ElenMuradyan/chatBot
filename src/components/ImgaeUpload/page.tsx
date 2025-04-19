@@ -26,8 +26,9 @@ export default function ImageUpload ({setImageUrl}: {setImageUrl: (img: string) 
               setImageUrl(imageUrl);
             onSuccess?.(data);
         }
-      } catch (error: any) {
-        console.log(error.message);
+    }catch( error ){
+        const err = error as Error;
+        console.log(err.message);
       }
    };
 

@@ -16,8 +16,9 @@ export default async function GenerateImage (prompt: string) {
         const result = await response.json();
 
         return result.image;
-    }catch(error: any){
-        console.error('Error with OpenRouter image API:', error);
+    }catch( error ){
+        const err = error as Error;
+        console.error('Error with OpenRouter image API:', err);
         return null;
     }
 }

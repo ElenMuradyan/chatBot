@@ -31,10 +31,12 @@ export default function ChatPage() {
   const { id } = useParams();
 
   useEffect(() => {
-    userData && dispatch(messagesHistory({collectionName: 'AiPoweredChatbot'}))
-  }, [userData]);
+    if (userData) {
+      dispatch(messagesHistory({ collectionName: 'AiPoweredChatbot' }));
+    }
+  }, [userData, dispatch]);
 
-  useEffect(() => { 
+    useEffect(() => { 
         async function fetch() {   
           setMainLoading(true);
           try{
@@ -58,7 +60,10 @@ export default function ChatPage() {
   const sendMessage = async () => {
     const message = input.trim();
     if (!message) return;
-    !personality && setPersonality('Good Assistant');
+    if(!personality){
+      setPersonality('Good Assistant');
+    }
+    
     if(personality){
       try{
         setInput('');
@@ -73,7 +78,9 @@ export default function ChatPage() {
           setRouteId(id as string);
         }else{
           const updateId = id === 'newChat' ? routeId : id;
-         userData && updateMessagesDoc({ collectionName: 'AiPoweredChatbot', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string});
+          if(userData){
+            updateMessagesDoc({ collectionName: 'AiPoweredChatbot', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string});
+          }
         };
   
         setMessages((prev) => [
@@ -84,9 +91,10 @@ export default function ChatPage() {
           }
         ]); 
         return response;
-      }catch(error: any){
+      }catch( error ){
+        const err = error as Error;
         notification.error({
-          message: error.message
+          message: err.message
         })
       }finally{
         setLoading(false);

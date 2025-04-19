@@ -34,7 +34,8 @@ export async function addMessagesDoc ({ personality, collectionName, messages, f
             const collectionRef = functionName ? collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName, functionName, FIRESTORE_PATH_NAMES.THREADS) : collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName);
             const message = await addDoc(collectionRef, {messages, personality: personality ?? null , createdAt: (new Date()).toLocaleDateString('en-GB').replace(/\//g, '.')});     
             return message.id;
-        }catch(err: any){
+        }catch( error ){
+            const err = error as Error;
             console.log(err.message);
         }    
     }

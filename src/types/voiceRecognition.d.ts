@@ -1,6 +1,6 @@
 export interface voiceRecognitionInterface {
     setVoiceMessage: (val: string) => void,
     setVoiceRecording: (val: boolean) => void,
-    endFuncton: () => Promise<any>,
+    endFuncton: () => Promise<string>,
     loading: boolean
 }

@@ -41,9 +41,10 @@ export async function POST(request: Request) {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
           });
-        } catch (error: any) {
-            console.error('SentimentAnalysis API error:', error); 
-          return new Response(JSON.stringify({ error: error.message }), {
+        }catch( error ){
+            const err = error as Error;
+            console.error('SentimentAnalysis API error:', err); 
+          return new Response(JSON.stringify({ error: err.message }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' }
         });

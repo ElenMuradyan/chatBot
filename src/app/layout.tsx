@@ -2,8 +2,8 @@
 
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header/page";
-import { RootState, store } from "@/state-management/store";
-import { Provider, useSelector } from "react-redux";
+import { store } from "@/state-management/store";
+import { Provider } from "react-redux";
 import { usePathname } from "next/navigation";
 import { ROUTE_PATHS } from "@/utilis/constants";
 import ChatHeader from "@/components/ChatHeader/page";

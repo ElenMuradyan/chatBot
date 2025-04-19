@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserData, messagesHistory } from '@/state-management/slices/userSlice';
+import { messagesHistory } from '@/state-management/slices/userSlice';
 import { AppDispatch, RootState } from '@/state-management/store';
 import ChatContainer from '@/components/ChatContainer/page';
 import { useParams } from 'next/navigation';
@@ -26,7 +26,9 @@ export default function WrittingChatPage() {
   const { id, function: functionName } = useParams();
 
     useEffect(() => {
-        userData && dispatch(messagesHistory({collectionName: 'WrittingAssistant', functionName: functionName as string}))
+        if(userData){
+            dispatch(messagesHistory({collectionName: 'WrittingAssistant', functionName: functionName as string}))
+        }
     }, [userData]);
   
   useEffect(() => {
@@ -66,7 +68,9 @@ export default function WrittingChatPage() {
           setRouteId(id as string);
         }else{
           const updateId = id === 'newChat' ? routeId : id;
-         userData && updateMessagesDoc({ collectionName: 'WrittingAssistant', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string, functionName: functionName as string});
+          if(userData){
+            updateMessagesDoc({ collectionName: 'WrittingAssistant', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string, functionName: functionName as string});
+          }
         };
   
         setMessages((prev) => [
@@ -77,9 +81,10 @@ export default function WrittingChatPage() {
           }
         ]); 
         return response;
-      }catch(error: any){
+    }catch( error ){
+        const err = error as Error;
         notification.error({
-          message: error.message
+          message: err.message
         })
       }finally{
         setLoading(false);

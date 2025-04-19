@@ -59,8 +59,9 @@ export async function POST(request: Request) {
       const reply = data.choices?.[0]?.message?.content || "No response from model.";
   
       return new Response(JSON.stringify({ reply }), { status: 200 });
-    } catch (error: any) {
-      console.error("Error with Writing Assistant POST route:", error);
+    }catch( error ){
+      const err = error as Error;
+      console.error("Error with Writing Assistant POST route:", err);
       return new Response(JSON.stringify({ error: "Error with Writing Assistant POST route" }), { status: 500 });
     }
   }

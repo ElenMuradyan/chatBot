@@ -16,8 +16,9 @@ export default function SentimentAnalysis(){
             setLoading(true);
             const description = await SentimentAnalysisFunction(prompt);
             setDescription(description);
-        }catch(error: any){
-            console.log(error.message);
+        }catch( error ){
+            const err = error as Error;
+            console.log(err.message);
         }finally{
             setLoading(false);
         }
