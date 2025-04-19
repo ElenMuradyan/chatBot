@@ -1,8 +1,5 @@
-import { signOut } from 'firebase/auth';
 import icon from '../../../public/favicon.png';
 import Link from 'next/link'; 
-import { auth } from '@/services/firebase';
-import { useState } from 'react';
 import { Dropdown, MenuProps } from 'antd';
 import { handleLogOut } from '@/utilis/helpers/logout';
 
