@@ -1,5 +1,4 @@
 'use client'
-import Image from "next/image";
 import icon from '../../../public/favicon.png';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state-management/store";
@@ -8,8 +7,8 @@ import { ROUTE_PATHS } from "@/utilis/constants";
 import { useState } from "react";
 import { BackwardOutlined } from "@ant-design/icons";
 import { messagesHistory } from "@/state-management/slices/userSlice";
-import '../../styles/header.css';
 import Link from "next/link";
+import '../../styles/header.css';
 
 export default function ChatHeader () {
     const { messages } = useSelector((state: RootState) => state.userData.authUserInfo);
@@ -54,7 +53,7 @@ export default function ChatHeader () {
             </div>
         <header className="flex justify-between items-center p-1 bg-black bg-opacity-90 shadow-md">
         <div className="headerContainer">
-        <Image src={icon.src} alt="icon" width={50}/>
+        <img src={icon.src} alt="icon" width={50} height={50}/>
         {
             isChatPage && <button className="headerButton" onClick={handleDisplayStory}>History</button>
         }
