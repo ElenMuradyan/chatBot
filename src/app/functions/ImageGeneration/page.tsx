@@ -71,7 +71,7 @@ export default function ImageGeneration(){
                     </div>
                 </div>
                 ) : (
-                <Image src={image} alt="placeholderImage" className="image" width={512} height={512} />
+                <Image src={image.src} alt="placeholderImage" className="image" width={512} height={512} />
                 )
             }
             </div>

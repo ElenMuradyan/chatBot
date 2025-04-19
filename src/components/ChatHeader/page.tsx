@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import icon from '../../../public/favicon.png';
+import icon from '../../../public/.png';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state-management/store";
 import { useParams, usePathname, useRouter } from "next/navigation";
@@ -54,7 +54,7 @@ export default function ChatHeader () {
             </div>
         <header className="flex justify-between items-center p-1 bg-black bg-opacity-90 shadow-md">
         <div className="headerContainer">
-        <Image src={icon} alt="icon" width={50}/>
+        <Image src={icon.src} alt="icon" width={50}/>
         {
             isChatPage && <button className="headerButton" onClick={handleDisplayStory}>History</button>
         }
