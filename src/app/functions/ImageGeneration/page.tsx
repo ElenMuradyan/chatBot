@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import image from '../../../../public/favicon.ico';
+import image from '../../../../public/favicon.png';
 import GenerateImage from '@/utilis/helpers/GenerateImage';
 import { notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';

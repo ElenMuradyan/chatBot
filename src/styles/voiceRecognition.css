@@ -8,21 +8,27 @@
     justify-content: center;
 }
 
-.speakingLoader,
+.speakingLoader {
+  width: 150px;
+  aspect-ratio: 1;
+  background: linear-gradient(45deg, #6f00ff, #00d0ff);
+  border-radius: 50%;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  will-change: border-radius, background;
+  animation-name: l1;
+  backface-visibility: hidden;
+}
+
 .listenLoader {
   width: 150px;
   aspect-ratio: 1;
   border-radius: 50%;
   animation-duration: 10s;
+  background: linear-gradient(45deg, #000000, #ffffff);
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-}
-
-.speakingLoader {
-  animation-name: l1;
-}
-
-.listenLoader {
   will-change: border-radius, background;
   animation-name: l2;
   backface-visibility: hidden;

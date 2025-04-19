@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation';
-import { FunctionsArray, ROUTE_PATHS } from '@/utilis/constants';
+import { FunctionsArray } from '@/utilis/constants';
 
 import '../../styles/home.css';
 

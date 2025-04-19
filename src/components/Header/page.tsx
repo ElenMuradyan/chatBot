@@ -1,5 +1,5 @@
 import Image from "next/image";
-import icon from '../../../public/favicon.ico';
+import icon from '../../../public/favicon.png';
 import Link from 'next/link'; 
 
 export default function Header() {

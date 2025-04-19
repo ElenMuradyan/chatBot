@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { AudioOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import '../../styles/voiceRecognition.css';
 import { voiceRecognitionInterface } from '@/types/voiceRecognition';
+import '../../styles/voiceRecognition.css';
 
 export default function VoiceRecognition({
   setVoiceMessage,
@@ -70,7 +70,7 @@ export default function VoiceRecognition({
     utterance.onend = () => {
       setSpeaking(false);
     };
-
+    setSpeaking(true);
     speechSynthesis.speak(utterance);
   };
 
