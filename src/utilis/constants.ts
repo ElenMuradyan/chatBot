@@ -1,3 +1,14 @@
+import writing5 from '../../public/Images/writing5.jpg';
+import writing1 from '../../public/Images/writing6.jpg';
+import writing2 from '../../public/Images/writing2.jpg';
+import writing3 from '../../public/Images/writing.jpg';
+import writing4 from '../../public/Images/writing4.jpg';
+import chatBot from '../../public/Images/chatbot.png';
+import aiImage from '../../public/Images/ai-image.jpg';
+import image from '../../public/Images/image.jpg';
+import sentiment from '../../public/Images/sentiment-analysis.jpg';
+import writing from '../../public/Images/writing.jpg';
+
 export const ROUTE_PATHS = {
     HOME: '/',
     SIGN_IN: '/sign-in',
@@ -143,3 +154,60 @@ export const CHATBOT_PERSONALITIES = {
 
   };
   
+
+export const WrittingAssistantFunctions = [
+  {
+    label: 'Draft Emails',
+    route: `${ROUTE_PATHS.DRAFT_EMAIL}/newChat`,
+    style: { backgroundImage: `url(${writing3.src})`}
+  },
+  {
+    label: 'Write Essays',
+    route: `${ROUTE_PATHS.WRITE_ESSAY}/newChat`,
+    style: { backgroundImage: `url(${writing2.src})`}
+  },  
+  {
+    label: 'Blog & Social Posts',
+    route: `${ROUTE_PATHS.WRITE_BLOG}/newChat`,
+    style: { backgroundImage: `url(${writing4.src})`}
+  },  
+  {
+    label: 'Improve Grammar & Tone',
+    route: `${ROUTE_PATHS.IMPROVE_TEXT}/newChat`,
+    style: { backgroundImage: `url(${writing1.src})`}
+  },  
+  {
+    label: 'Expand / Shorten Text',
+    route: `${ROUTE_PATHS.EXPAND_SHORTEN}/newChat`,
+    style: { backgroundImage: `url(${writing5.src})`}
+  },
+]
+
+
+export const FunctionsArray = [
+  {
+    label: 'AI-Powered Chatbot',
+    route: `${ROUTE_PATHS.AIPOWEREDCHATBOT}/newChat`,
+    style: { backgroundImage: `url(${chatBot.src})` }
+  },
+  {
+    label: 'AI Image Generation',
+    route: `${ROUTE_PATHS.IMAGEGENERATION}`,
+    style: { backgroundImage: `url(${aiImage.src})` }
+  },
+  {
+    label: 'Image Recognition',
+    route: `${ROUTE_PATHS.IMAGERECOGNITION}`,
+    style: { backgroundImage: `url(${image.src})` }
+  },
+  {
+    label: 'Sentiment Analysis',
+    route: ROUTE_PATHS.SENTIMENTANALYSIS,
+    style: { backgroundImage: `url(${sentiment.src})` }
+  },
+  {
+    label: 'AI Writing Assistant',
+    route: ROUTE_PATHS.WRITTINGASSISTANT,
+    style: { backgroundImage: `url(${writing.src})` }
+  }
+]

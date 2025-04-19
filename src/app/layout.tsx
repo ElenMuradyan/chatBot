@@ -37,7 +37,7 @@ export default function RootLayout({
         <Provider store={store}>
           <MainLoader>
           { isChatPage ? <ChatHeader /> : <Header />} 
-        {children}
+          {children}
           </MainLoader>
         </Provider>
       </body>

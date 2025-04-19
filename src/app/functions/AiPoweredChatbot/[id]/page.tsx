@@ -14,9 +14,9 @@ import { AudioOutlined, LoadingOutlined, SendOutlined } from '@ant-design/icons'
 import ChatStart from '@/components/ChatStart/page';
 import { Personality } from '@/types/fetchMessages';
 import VoiceRecognition from '@/components/VoiceRecognition/page';
+import MainLoader from '@/components/LoadingWrapper/page';
 
 import '../../../../styles/chat.css';
-import MainLoader from '@/components/LoadingWrapper/page';
 
 export default function ChatPage() {
   const { userData } = useSelector((state: RootState) => state.userData.authUserInfo);
@@ -72,15 +72,13 @@ export default function ChatPage() {
         setMessages([...messages, newMessage]);
         const response = await SendToAiChatbot({messages: [...messages,  { sender: 'user', text: input }], personality});
   
-        if(!messages.length && userData){
+        if(!messages.length){
           const id = await addMessagesDoc({ collectionName: 'AiPoweredChatbot', personality ,messages: [{sender: 'user', text: message}, { sender: 'bot', text: response}]});
           window.history.replaceState(null, '', `${ROUTE_PATHS.AIPOWEREDCHATBOT}/${id}`);
           setRouteId(id as string);
         }else{
           const updateId = id === 'newChat' ? routeId : id;
-          if(userData){
-            updateMessagesDoc({ collectionName: 'AiPoweredChatbot', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string});
-          }
+          updateMessagesDoc({ collectionName: 'AiPoweredChatbot', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string});
         };
   
         setMessages((prev) => [

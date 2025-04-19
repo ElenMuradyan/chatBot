@@ -27,7 +27,7 @@ export default function ChatContainer ({messages, loading}: chatInterface) {
                 }`}
                 >
                 {
-                  functionName && botMessage && <button className="headerButton"><CopyOutlined onClick={() => navigator.clipboard.writeText(msg.text)}/></button>
+                  functionName && botMessage && <CopyOutlined onClick={() => navigator.clipboard.writeText(msg.text)}/>
                 }
                 {isLast && botMessage && idx ? <BotMessage text={msg.text} /> : msg.text}
                 </div>)

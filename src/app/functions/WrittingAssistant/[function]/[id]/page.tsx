@@ -62,15 +62,13 @@ export default function WrittingChatPage() {
         setMessages([...messages, newMessage]);
         const response = await sendMessageToWrittingAssistant({messages: [...messages,  { sender: 'user', text: input }], functionName: functionName as string});  
 
-        if(!messages.length && userData){
+        if(!messages.length){
           const id = await addMessagesDoc({ collectionName: 'WrittingAssistant' ,messages: [{sender: 'user', text: message}, { sender: 'bot', text: response}], functionName: functionName as string});
           window.history.replaceState(null, '', `${ROUTE_PATHS.FUNCTIONS}/${functionName}/${id}`);
           setRouteId(id as string);
         }else{
           const updateId = id === 'newChat' ? routeId : id;
-          if(userData){
             updateMessagesDoc({ collectionName: 'WrittingAssistant', messages: [...messages, {sender: 'user', text: message},{ sender: 'bot', text: response}], id: updateId as string, functionName: functionName as string});
-          }
         };
   
         setMessages((prev) => [

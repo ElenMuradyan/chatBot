@@ -1,5 +1,6 @@
 .imageGenerationContainer {
     width: 100%;
+    min-height: 100vh;
     background: linear-gradient(135deg, #000000, #5006ff);
     display: flex;
     align-items: center;
