@@ -19,7 +19,7 @@ export default function Header() {
             {
               isAuth ?             <Dropdown
               menu={{items}}
-              trigger={['hover']}
+              trigger={['click']}
               >
               <img src={icon.src} alt="icon" width={50} height={50}/>
               </Dropdown>
