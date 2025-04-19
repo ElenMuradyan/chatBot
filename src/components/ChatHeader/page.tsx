@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import icon from '../../../public/.png';
+import icon from '../../../public/favicon.png';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state-management/store";
 import { useParams, usePathname, useRouter } from "next/navigation";
