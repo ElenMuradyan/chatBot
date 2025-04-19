@@ -48,7 +48,7 @@ const Login = () => {
       }
 
      form.resetFields();
-      }catch( error: any ){
+      }catch( error:any ){
         console.log(error.message);
         setError(error.message);
       }finally{
