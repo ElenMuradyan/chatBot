@@ -2,8 +2,8 @@ import icon from '../../../public/favicon.png';
 import Link from 'next/link'; 
 import { Dropdown, MenuProps } from 'antd';
 import { handleLogOut } from '@/utilis/helpers/logout';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/state-management/store';
+import { getIsAuth } from '@/utilis/helpers/getIsAuth';
+import { useEffect, useState } from 'react';
 
 const items: MenuProps['items'] = [
   {
@@ -13,18 +13,28 @@ const items: MenuProps['items'] = [
 ]
 
 export default function Header() {
-  const { isAuth } = useSelector((state: RootState) => state.userData.authUserInfo)
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getAuth = async () => {
+      const { isAuth } = await getIsAuth();
+      setIsAuth(isAuth);      
+    };
+
+    getAuth();
+  }, []);
+
     return (
         <header className="flex justify-between items-center p-1 bg-black bg-opacity-90 shadow-md">
             {
-              isAuth ?             <Dropdown
+              isAuth ? <Dropdown
               menu={{items}}
               trigger={['click']}
               >
-              <img src={icon.src} alt="icon" width={50} height={50}/>
+              <img style={{cursor: 'pointer'}} src={icon.src} alt="icon" width={50} height={50}/>
               </Dropdown>
               :
-              <img src={icon.src} alt="icon" width={50} height={50}/>
+              <img style={{cursor: 'pointer'}} src={icon.src} alt="icon" width={50} height={50}/>
             }
             <nav className="flex space-x-6">
                 <Link href="/">Home</Link> 

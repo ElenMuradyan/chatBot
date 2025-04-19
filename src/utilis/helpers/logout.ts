@@ -14,6 +14,7 @@ export const handleLogOut = async () => {
       if(!res.ok){
         throw new Error('Something is wrong.')
       }
+      window.location.reload();
     }catch{
       console.log('Error.');
     }

@@ -58,61 +58,61 @@ const Login = () => {
     };
 
     return (
-  <Form
-    layout="vertical"
-    onFinish={handleLogin}
-    initialValues={{ email: '', password: '' }} 
-    form={form}
-    style={{padding: 10}}
-    className="w-2/3 bg-gray-900 border border-gray-700 rounded-md p-10 space-y-6" 
-  >
-    <h2 className="text-3xl font-bold text-center text-white drop-shadow-[0_0_6px_#8b5cf6]">
-      Login
-    </h2>
-    <Form.Item
-      name="email"
-      rules={[{ required: true, message: 'Please enter your email.' }]}
-    >
-      <input
-        type="email"
-        placeholder="Your email*"
-        onChange={() => setError('')}
-        className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-400 shadow-inner shadow-black focus:outline-none focus:ring-2 focus:ring-violet-600"
-      />
-    </Form.Item>
-
-    <Form.Item
-      name="password"
-      tooltip="6–16 characters, number, symbol, upper & lowercase."
-      rules={[
-        { required: true, message: 'Please enter your password.' },
-      ]}
-    >
-      <input
-        type="password"
-        placeholder="Your password*"
-        onChange={() => setError('')}
-        className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white shadow-inner shadow-black focus:outline-none focus:ring-2 focus:ring-violet-600"
-      />
-    </Form.Item>
-    <p style={{color: 'red'}}>{error}</p>
-    <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 pt-4">
-      <button
-        type="submit"
-        disabled={loading}
-        className="transition-all bg-gradient-to-br from-violet-600 to-purple-700 hover:from-purple-700 hover:to-violet-800 px-8 py-3 rounded-md text-white font-medium shadow-[0_0_10px_rgba(139,92,246,0.6)] hover:shadow-[0_0_20px_rgba(139,92,246,0.8)]"
+      <Form
+        layout="vertical"
+        onFinish={handleLogin}
+        initialValues={{ email: '', password: '' }}
+        form={form}
+        className="w-full max-w-md bg-gray-900 border border-gray-700 rounded-md p-6 sm:p-10 space-y-6"
       >
-        {loading ? 'Logining...' : 'Login'}
-      </button>
+        <h2 className="text-3xl font-bold text-center text-white drop-shadow-[0_0_6px_#8b5cf6]">
+          Login
+        </h2>
 
-      <Link
-        href={ROUTE_PATHS.SIGN_UP}
-        className="text-violet-300 hover:text-violet-400 hover:underline transition drop-shadow-[0_0_4px_rgba(139,92,246,0.5)]"
-      >
-        Sign up
-      </Link>
-    </div>
-  </Form>
+        <Form.Item
+          name="email"
+          rules={[{ required: true, message: 'Please enter your email.' }]}
+        >
+          <input
+            type="email"
+            placeholder="Your email*"
+            onChange={() => setError('')}
+            className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-400 shadow-inner shadow-black focus:outline-none focus:ring-2 focus:ring-violet-600"
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="password"
+          tooltip="6–16 characters, number, symbol, upper & lowercase."
+          rules={[{ required: true, message: 'Please enter your password.' }]}
+        >
+          <input
+            type="password"
+            placeholder="Your password*"
+            onChange={() => setError('')}
+            className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white shadow-inner shadow-black focus:outline-none focus:ring-2 focus:ring-violet-600"
+          />
+        </Form.Item>
+
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+
+        <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 pt-4">
+          <button
+            type="submit"
+            disabled={loading}
+            className="transition-all bg-gradient-to-br from-violet-600 to-purple-700 hover:from-purple-700 hover:to-violet-800 px-8 py-3 rounded-md text-white font-medium shadow-[0_0_10px_rgba(139,92,246,0.6)] hover:shadow-[0_0_20px_rgba(139,92,246,0.8)]"
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+
+          <Link
+            href={ROUTE_PATHS.SIGN_UP}
+            className="text-violet-300 hover:text-violet-400 hover:underline transition drop-shadow-[0_0_4px_rgba(139,92,246,0.5)]"
+          >
+            Sign up
+          </Link>
+        </div>
+      </Form>
     );
 };
 
