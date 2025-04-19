@@ -1,11 +1,10 @@
 'use client'
 
 import { useState } from 'react';
-import { errorMessage, recognitionPrompts } from '@/utilis/constants';
+import { SentimentAnalysisFunction } from '@/utilis/helpers/SentimentAnalysis';
 
 import '../../../styles/imageGeneration.css';
 import '../../../styles/imageRecognition.css';
-import { SentimentAnalysisFunction } from '@/utilis/helpers/SentimentAnalysis';
 
 export default function SentimentAnalysis(){
     const [ loading, setLoading ] = useState<boolean>(false);

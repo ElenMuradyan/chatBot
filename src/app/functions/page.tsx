@@ -1,10 +1,7 @@
 'use client'
 
 import chatBot from '../../../public/Images/chatbot.png';
-import recomendations from '../../../public/Images/recommendations.jpg';
 import aiImage from '../../../public/Images/ai-image.jpg';
-import data from '../../../public/Images/data.jpg';
-import voice from '../../../public/Images/voice.jpg';
 import image from '../../../public/Images/image.jpg';
 import sentiment from '../../../public/Images/sentiment-analysis.jpg';
 import writing from '../../../public/Images/writing.jpg';

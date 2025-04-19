@@ -1,20 +1,23 @@
 'use client'
 import Home from '@/components/Home/page';
-import '../styles/home.css';
 import { fetchUserData } from "@/state-management/slices/userSlice";
-import { AppDispatch } from "@/state-management/store";
+import { AppDispatch, RootState } from "@/state-management/store";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { usePathname } from 'next/navigation';
+import '../styles/home.css';
 
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
-  const pathName = usePathname();
+  const isAuth = ((state: RootState) => state.userData.authUserInfo.isAuth);
+  const userData = ((state: RootState) => state.userData.authUserInfo.userData);
+  const error = ((state: RootState) => state.userData.error);
 
   useEffect(() => {
-    dispatch(fetchUserData());
-  }, [pathName]);
-
+    if(!userData && !isAuth && !error){
+        dispatch(fetchUserData());
+      }
+  }, [dispatch]);
+    
   return (
     <Home />
   );

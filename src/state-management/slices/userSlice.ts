@@ -1,17 +1,16 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { userData, userDataSliceType } from "@/types/userData";
 import { db } from "@/services/firebase";
 import { FIRESTORE_PATH_NAMES } from "@/utilis/constants";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import Cookies from 'js-cookie';
 import { messageFromBackend } from "@/types/fetchMessages";
 import { getIsAuth } from "@/utilis/helpers/getIsAuth";
 
 const initialState: userDataSliceType = {
-    loading: true,
+    loading: false,
     error: null,
     authUserInfo: {
-        isAuth: Cookies.get('isAuth') === 'true',
+        isAuth: false,
         userData: null,
         messages: null,
     },
@@ -21,8 +20,10 @@ export const fetchUserData = createAsyncThunk(
     "users/fetchUserData",
     async (_, { rejectWithValue }) => {
         try{
-            const { uid, isAuth} = await getIsAuth();
-console.log(isAuth);
+            const { uid: uidValue, isAuth: isAuthValue} = await getIsAuth();
+
+            const uid = uidValue.value;
+            const isAuth = isAuthValue;
 
             if(isAuth && uid){
                 const userRef = doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid);
@@ -40,15 +41,18 @@ console.log(isAuth);
                 throw new Error("Not authenticated");
             }
         }catch(error: any){
-            rejectWithValue(error.message);
+           return rejectWithValue(error.message);
         }    
     }
 );
 
 export const messagesHistory = createAsyncThunk(
     'users/fetchHistory',
-    async ({collectionName, functionName}: {collectionName: string, functionName?: string}) => {        
-        const uid = Cookies.get('uid');
+    async ({collectionName, functionName}: {collectionName: string, functionName?: string}) => {  
+        const { uid: uidValue } = await getIsAuth();
+      
+        const uid = uidValue.value;
+
         if(uid){            
             const history = functionName ? collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName, functionName, FIRESTORE_PATH_NAMES.THREADS) : collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName);
             const historySnapshot = await getDocs(history);            
@@ -65,11 +69,11 @@ const userDataSlice = createSlice({
     name: 'userData',
     initialState,
     reducers: {
-        changeLoading: (state, action) => {
+        changeLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload;
         },
-        setIsAuth: (state, action) => {
-            state.authUserInfo.isAuth = action.payload
+        setIsAuth: (state, action: PayloadAction<boolean>) => {
+            state.authUserInfo.isAuth = action.payload;
         },
     },
     extraReducers:(builder) => {
@@ -78,7 +82,7 @@ const userDataSlice = createSlice({
             state.authUserInfo.userData = null;
             state.loading = true;
         })
-        .addCase(fetchUserData.fulfilled, (state, action) => {                        
+        .addCase(fetchUserData.fulfilled, (state, action) => { 
             state.loading = false;
             if(action.payload?.userData && action.payload.isAuth){
                 state.authUserInfo.userData = action.payload.userData;

@@ -37,7 +37,8 @@ input:active {
 
 .chatContainer{
     height: 90vh;
-    overflow-y: scroll;
+    padding-bottom: 20px;
+    overflow-y: hidden;
     width: 100%;
     background-position: center;
     background-size: cover;
@@ -95,7 +96,6 @@ button:disabled {
 
 .buttonContainer {
     display: flex;
-    gap: 3px;
     padding: 1rem;
 }
 
@@ -150,4 +150,34 @@ button:disabled {
     62.5% {border-radius: 73% 27% 74% 26% / 64% 32% 68% 36%}
     75%   {border-radius: 84% 16% 15% 85% / 55% 79% 21% 45%}
     87.5% {border-radius: 12% 88% 69% 31% / 10% 66% 34% 90%}
+}
+
+@media (max-width: 768px) {
+  button {
+    height: 35px;
+    font-size: 0.9rem;
+  }
+
+  .personalityButton {
+    padding: 20px;
+    font-size: 0.9rem;
+  }
+
+}
+
+@media (max-width: 480px) {
+  button {
+    height: 32px;
+    font-size: 0.8rem;
+    margin: 1px;
+  }
+
+  .personalityButton {
+    padding: 16px;
+    font-size: 0.85rem;
+  }
+
+  .botMessage{
+    width: 100%;
+  }
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { notification } from 'antd';
 import ImageUpload from '@/components/ImgaeUpload/page';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -16,11 +16,7 @@ export default function imageRecognition(){
     const [ prompt, setPrompt ] = useState<string>('');
     const [ description, setDescription ] = useState<string>(errorMessage);
 
-    useEffect(()=>{console.log(description);
-    }, [description])
     const handleImageRecognition = async () => {
-        console.log('hi');   
-
         if (!prompt && !imageUrl) {
             notification.warning({
               message: 'Please enter a prompt before generating.',
@@ -37,6 +33,7 @@ export default function imageRecognition(){
             setLoading(false);
         }
     };
+
     return(
         <div className="imageGenerationContainer">
             <div className='generationInputContainer'>

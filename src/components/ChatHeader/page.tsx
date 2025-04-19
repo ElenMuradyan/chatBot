@@ -16,14 +16,10 @@ export default function ChatHeader () {
     const { messages, userData } = useSelector((state: RootState) => state.userData.authUserInfo);
     const { push } = useRouter();
     const [ displayHistory, setDisplayHistory ] = useState<boolean>(false);
-      const pathName = usePathname();
-      const isChatPage = (pathName.includes(ROUTE_PATHS.AIPOWEREDCHATBOT) || pathName.includes(ROUTE_PATHS.WRITTINGASSISTANT)) && !pathName.endsWith('WrittingAssistant');
+    const pathName = usePathname();
+    const isChatPage = (pathName.includes(ROUTE_PATHS.AIPOWEREDCHATBOT) || pathName.includes(ROUTE_PATHS.WRITTINGASSISTANT)) && !pathName.endsWith('WrittingAssistant');
     const dispatch = useDispatch<AppDispatch>();
     const { function: functionName } = useParams();
-
-    useEffect(() => {
-        dispatch(fetchUserData());
-    }, [pathName]);
 
     const handleDisplayStory = () => {
         setDisplayHistory(true);

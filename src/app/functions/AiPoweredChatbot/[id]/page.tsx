@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { SendToAiChatbot } from '@/utilis/helpers/sendMessage';
 import { notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserData, messagesHistory } from '@/state-management/slices/userSlice';
+import { messagesHistory } from '@/state-management/slices/userSlice';
 import { AppDispatch, RootState } from '@/state-management/store';
 import ChatContainer from '@/components/ChatContainer/page';
 import { useParams } from 'next/navigation';
@@ -16,12 +16,14 @@ import { Personality } from '@/types/fetchMessages';
 import VoiceRecognition from '@/components/VoiceRecognition/page';
 
 import '../../../../styles/chat.css';
+import MainLoader from '@/components/LoadingWrapper/page';
 
 export default function ChatPage() {
   const { userData } = useSelector((state: RootState) => state.userData.authUserInfo);
   const [messages, setMessages] = useState<message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
+  const [mainLoading, setMainLoading] = useState<boolean>(false);
   const [ personality, setPersonality ] = useState<Personality | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const [ routeId, setRouteId ] = useState<string>('');
@@ -29,26 +31,29 @@ export default function ChatPage() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(fetchUserData());
-  }, [dispatch]);
-
-  useEffect(() => {
     userData && dispatch(messagesHistory({collectionName: 'AiPoweredChatbot'}))
   }, [userData]);
 
-  useEffect(() => {
-    async function fetch() {
-      if(id && userData){
-        const data = await fetchMessages({ chatId: id as string, collectionName: 'AiPoweredChatbot'});
-        if(data){
-          setMessages(data.messages);
-          setPersonality(data.personality);
-        }
-      }  
+  useEffect(() => { 
+        async function fetch() {   
+          setMainLoading(true);
+          try{
+            if(id){
+              const data = await fetchMessages({ chatId: id as string, collectionName: 'AiPoweredChatbot'});        
+              if(data){
+                setMessages(data.messages);
+                setPersonality(data.personality);
+              }
+            }        
+          }catch{
+            console.log('Error');
+          }finally{
+            setMainLoading(false);
+          }
     };
 
     fetch();
-  }, [userData, id]);  
+  }, [id]);  
 
   const sendMessage = async () => {
     const message = input.trim();
@@ -90,7 +95,7 @@ export default function ChatPage() {
   };
 
   return ( 
-    <>
+    <MainLoader loading={mainLoading}>
     {
       voiceRecording ? <VoiceRecognition setVoiceMessage={setInput} setVoiceRecording={setVoiceRecording} endFuncton={sendMessage} loading={loading}/> 
       :     
@@ -128,6 +133,6 @@ export default function ChatPage() {
     </div>
 
     }
-    </>
+    </MainLoader>
    );
 }

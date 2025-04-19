@@ -13,32 +13,37 @@ import { sendMessageToWrittingAssistant } from '@/utilis/helpers/sendMessageToWr
 import { ROUTE_PATHS, writingTaskPlaceholders } from '@/utilis/constants';
 
 import '../../../../../styles/chat.css';
+import MainLoader from '@/components/LoadingWrapper/page';
 
 export default function WrittingChatPage() {
   const { userData } = useSelector((state: RootState) => state.userData.authUserInfo);
   const [messages, setMessages] = useState<message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
+  const [mainLoading, setMainLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const [ routeId, setRouteId ] = useState<string>('');
   const { id, function: functionName } = useParams();
 
-  useEffect(() => {
-    dispatch(fetchUserData());
-  }, [dispatch]);
-
     useEffect(() => {
-      userData && dispatch(messagesHistory({collectionName: 'WrittingAssistant', functionName: functionName as string}))
+        userData && dispatch(messagesHistory({collectionName: 'WrittingAssistant', functionName: functionName as string}))
     }, [userData]);
   
   useEffect(() => {
     async function fetch() {
-      if(id){
-        const data = await fetchMessages({chatId: id as string, collectionName: 'WrittingAssistant', functionName: functionName as string});
-        if(data){
-          setMessages(data.messages);
+        try{
+            setMainLoading(true);
+            if(id){
+                const data = await fetchMessages({chatId: id as string, collectionName: 'WrittingAssistant', functionName: functionName as string});
+                if(data){
+                  setMessages(data.messages);
+                }
+              }  
+        }catch{
+            console.log('Error');
+        }finally{
+            setMainLoading(false);
         }
-      }  
     };
 
     fetch();
@@ -46,7 +51,6 @@ export default function WrittingChatPage() {
 
   const sendMessage = async () => {    
     const message = input.trim();
-    console.log('hi', functionName);
 
     if (!message) return;
       try{
@@ -83,6 +87,7 @@ export default function WrittingChatPage() {
   };
 
   return (
+    <MainLoader loading={mainLoading}>
       <div className='chatContainer'>
         <ChatContainer messages={messages} loading={loading} sendMessage={sendMessage} setInput={setInput} input={input}/>
         <h1>Write to your personal AI Writing Assistant</h1>
@@ -103,5 +108,6 @@ export default function WrittingChatPage() {
           </div>
         </div>
     </div>
+    </MainLoader>
    );
 }

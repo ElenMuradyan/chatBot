@@ -5,7 +5,6 @@ export async function GET() {
   const uid = (await cookies()).get('uid');
 
   const isAuthenticated = isAuth?.value === 'true';
-console.log(isAuthenticated);
 
   return new Response(JSON.stringify({ isAuth: isAuthenticated, uid: uid }), {
     status: 200,

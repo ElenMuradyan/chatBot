@@ -1,13 +1,12 @@
 .imageGenerationContainer {
     width: 100%;
-    height: 100vh;
     background: linear-gradient(135deg, #000000, #5006ff);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2rem;
     padding: 2rem;
-    box-sizing: border-box;
+    overflow: auto;
 }
 
 .generationInput {
@@ -117,6 +116,57 @@ h1{
     }
     100% {
       background-position: 0% 0%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .imageGenerationContainer {
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      height:  100vh;
+      overflow: scroll;
+    }
+  
+    .generationInputContainer {
+      width: 100%;
+    }
+  
+    .generationInput {
+      font-size: 0.95rem;
+      padding: 0.75rem;
+    }
+  
+    .loading {
+      width: 300px;
+      height: 300px;
+      font-size: 36px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .imageGenerationContainer {
+      padding: 1rem;
+      gap: 1rem;
+    }
+  
+    .generationInput {
+      font-size: 0.85rem;
+      padding: 0.6rem;
+    }
+  
+    .loading {
+      width: 250px;
+      height: 250px;
+      font-size: 28px;
+    }
+  
+    h1 {
+      font-size: 1.2rem;
+    }
+  
+    .downloadButton {
+      font-size: 0.9rem;
     }
   }
   
