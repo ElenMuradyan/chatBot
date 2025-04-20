@@ -12,12 +12,13 @@ export async function POST(request: Request) {
                 'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CHATBOT_API_KEY}`,
             },
             body: JSON.stringify({
-                model: 'openai/gpt-3.5-turbo',
+                model: 'deepseek/deepseek-r1:free',
                 messages: messages
             })
         }) 
 
         const data = await response.json();
+console.log(data);
 
         const reply = data.choices?.[0]?.message?.content  || 'No response from model.';
 

@@ -9,7 +9,7 @@ export async function POST(request: Request) {
                 'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CHATBOT_API_KEY}`,
             },
             body: JSON.stringify({
-                model: "openai/gpt-3.5-turbo",
+                model: "deepseek/deepseek-r1:free",
                 messages: [
                   {
                     role: "system",

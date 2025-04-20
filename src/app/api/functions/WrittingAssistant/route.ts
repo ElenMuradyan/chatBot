@@ -43,9 +43,8 @@ export async function POST(request: Request) {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_CHATBOT_API_KEY}`,
         },
         body: JSON.stringify({
-          model: "gpt-4",
+          model: "deepseek/deepseek-r1:free",
           messages: updatedMessages,
-          max_tokens: 150,
         }),
       });
   
