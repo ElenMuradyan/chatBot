@@ -1,7 +1,6 @@
 import { db } from "@/services/firebase";
 import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { FIRESTORE_PATH_NAMES } from "../constants";
-import { notification } from "antd";
 import { addMessageInterface, fetchMessagesDataInterface, fetchMessagesInterface, updateMessageInterface } from "@/types/fetchMessages";
 import { getIsAuth } from "./getIsAuth";
 
