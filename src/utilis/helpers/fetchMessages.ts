@@ -27,9 +27,7 @@ export async function fetchMessages ({collectionName, chatId, functionName}: fet
 
 export async function addMessagesDoc ({ personality, collectionName, messages, functionName}: addMessageInterface) {
     const {uid: uidValue} = await getIsAuth();
-    const uid = uidValue.value;
-    console.log(uid);
-    
+    const uid = uidValue.value;    
     if(uid){
         try{   
             const collectionRef = functionName ? collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName, functionName, FIRESTORE_PATH_NAMES.THREADS) : collection(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName);
@@ -38,6 +36,7 @@ export async function addMessagesDoc ({ personality, collectionName, messages, f
         }catch( error ){
             const err = error as Error;
             console.log(err.message);
+            return('No response from model.')
         }    
     }
 };
@@ -50,8 +49,6 @@ export async function updateMessagesDoc ({ collectionName, messages, id, functio
         const collectionRef = functionName ? doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName, functionName, FIRESTORE_PATH_NAMES.THREADS, id) : doc(db, FIRESTORE_PATH_NAMES.REGISTERED_USERS, uid, collectionName, id);
         await updateDoc(collectionRef, {messages}); 
     }catch{
-        notification.error({
-            message: 'Something is wrong.'
-        })
+        console.log('Something is wrong.');
     }}
 };
